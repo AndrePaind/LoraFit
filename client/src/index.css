@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(20, 14.3%, 4.1%);
+  --muted: hsl(60, 4.8%, 95.9%);
+  --muted-foreground: hsl(25, 5.3%, 44.7%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(20, 14.3%, 4.1%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(20, 14.3%, 4.1%);
+  --border: hsl(20, 5.9%, 90%);
+  --input: hsl(20, 5.9%, 90%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(60, 4.8%, 95.9%);
+  --secondary-foreground: hsl(24, 9.8%, 10%);
+  --accent: hsl(60, 4.8%, 95.9%);
+  --accent-foreground: hsl(24, 9.8%, 10%);
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(60, 9.1%, 97.8%);
+  --ring: hsl(20, 14.3%, 4.1%);
+  --radius: 0.5rem;
+
+  /* Custom pregnancy-friendly colors */
+  --sage-50: hsl(144, 37%, 96%);
+  --sage-100: hsl(141, 32%, 87%);
+  --sage-200: hsl(143, 32%, 78%);
+  --sage-300: hsl(144, 32%, 69%);
+  --sage-400: hsl(145, 27%, 64%);
+  --sage-500: hsl(146, 27%, 54%);
+  --sage-600: hsl(149, 25%, 44%);
+  --sage-700: hsl(150, 27%, 37%);
+  
+  --lavender-50: hsl(270, 25%, 96%);
+  --lavender-100: hsl(270, 20%, 90%);
+  --lavender-200: hsl(270, 20%, 84%);
+  --lavender-300: hsl(270, 18%, 70%);
+  --lavender-400: hsl(270, 15%, 62%);
+  --lavender-500: hsl(270, 15%, 54%);
+  
+  --peach-50: hsl(15, 86%, 97%);
+  --peach-100: hsl(15, 82%, 93%);
+  --peach-200: hsl(15, 82%, 87%);
+  --peach-300: hsl(15, 78%, 75%);
+  --peach-400: hsl(15, 80%, 69%);
+  --peach-500: hsl(15, 78%, 60%);
+  
+  --cream: hsl(48, 67%, 98%);
+}
+
+.dark {
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(240, 3.7%, 15.9%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    background-color: var(--cream);
+  }
+}
+
+@layer utilities {
+  .bg-sage-50 { background-color: var(--sage-50); }
+  .bg-sage-100 { background-color: var(--sage-100); }
+  .bg-sage-200 { background-color: var(--sage-200); }
+  .bg-sage-300 { background-color: var(--sage-300); }
+  .bg-sage-400 { background-color: var(--sage-400); }
+  .bg-sage-500 { background-color: var(--sage-500); }
+  .bg-sage-600 { background-color: var(--sage-600); }
+  .bg-sage-700 { background-color: var(--sage-700); }
+  
+  .text-sage-50 { color: var(--sage-50); }
+  .text-sage-100 { color: var(--sage-100); }
+  .text-sage-200 { color: var(--sage-200); }
+  .text-sage-300 { color: var(--sage-300); }
+  .text-sage-400 { color: var(--sage-400); }
+  .text-sage-500 { color: var(--sage-500); }
+  .text-sage-600 { color: var(--sage-600); }
+  .text-sage-700 { color: var(--sage-700); }
+  
+  .border-sage-200 { border-color: var(--sage-200); }
+  .border-sage-300 { border-color: var(--sage-300); }
+  .border-sage-400 { border-color: var(--sage-400); }
+  .border-sage-500 { border-color: var(--sage-500); }
+  
+  .bg-lavender-50 { background-color: var(--lavender-50); }
+  .bg-lavender-100 { background-color: var(--lavender-100); }
+  .bg-lavender-200 { background-color: var(--lavender-200); }
+  .bg-lavender-300 { background-color: var(--lavender-300); }
+  .bg-lavender-400 { background-color: var(--lavender-400); }
+  .bg-lavender-500 { background-color: var(--lavender-500); }
+  
+  .text-lavender-500 { color: var(--lavender-500); }
+  .border-lavender-200 { border-color: var(--lavender-200); }
+  .border-lavender-300 { border-color: var(--lavender-300); }
+  
+  .bg-peach-50 { background-color: var(--peach-50); }
+  .bg-peach-100 { background-color: var(--peach-100); }
+  .bg-peach-200 { background-color: var(--peach-200); }
+  .bg-peach-300 { background-color: var(--peach-300); }
+  .bg-peach-400 { background-color: var(--peach-400); }
+  .bg-peach-500 { background-color: var(--peach-500); }
+  
+  .text-peach-400 { color: var(--peach-400); }
+  .text-peach-500 { color: var(--peach-500); }
+  .border-peach-200 { border-color: var(--peach-200); }
+  .border-peach-300 { border-color: var(--peach-300); }
+  .border-peach-400 { border-color: var(--peach-400); }
+  
+  .bg-cream { background-color: var(--cream); }
+}
