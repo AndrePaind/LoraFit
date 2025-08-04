@@ -24,21 +24,21 @@ export default function SessionSelector() {
             <div className="absolute bottom-2 left-2 w-6 h-6 bg-white bg-opacity-5 rounded-full"></div>
             
             {/* Content */}
-            <div className="relative z-10 text-center text-white">
-              <div className="text-4xl font-bold mb-2 drop-shadow-sm">
+            <div className="relative z-10 text-center text-gray-800">
+              <div className="text-4xl font-bold mb-2">
                 {duration.label}
               </div>
-              <div className="text-sm opacity-95 mb-1 font-medium">
+              <div className="text-sm mb-1 font-medium text-gray-700">
                 minutes
               </div>
-              <div className="text-xs opacity-90 font-semibold tracking-wide uppercase">
+              <div className="text-xs font-semibold tracking-wide uppercase text-gray-600">
                 {duration.subtitle}
               </div>
               
               {/* Icon */}
               <div className="mt-4 flex justify-center">
-                <div className="w-10 h-10 bg-white bg-opacity-25 rounded-full flex items-center justify-center group-hover:bg-opacity-35 transition-all duration-300 shadow-lg">
-                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <div className="w-10 h-10 bg-gray-800 bg-opacity-15 rounded-full flex items-center justify-center group-hover:bg-opacity-25 transition-all duration-300 shadow-lg">
+                  <svg className="w-5 h-5 text-gray-800" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
                   </svg>
                 </div>
