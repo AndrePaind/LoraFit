@@ -95,16 +95,16 @@ export default function WorkoutSession() {
     return (
       <div className="max-w-sm mx-auto bg-white min-h-screen shadow-xl relative">
         {/* Header */}
-        <header className="bg-gradient-to-r from-sage-400 to-sage-500 px-6 py-8 text-white relative">
+        <header className="bg-gradient-to-r from-sage-400 to-sage-500 px-6 py-8 relative">
           <button 
             onClick={() => window.location.href = "/"}
             className="absolute top-6 left-6 w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-4 h-4 text-gray-800" />
           </button>
           <div className="text-center">
-            <h1 className="text-2xl font-semibold mb-2">Hi Lora! 💕</h1>
-            <p className="text-sage-50 text-sm">Ready for your {duration}-minute session? You and baby girl are going to do great!</p>
+            <h1 className="text-2xl font-semibold mb-2 text-gray-800">Hi Lora! 💕</h1>
+            <p className="text-gray-700 text-sm">Ready for your {duration}-minute session? You and baby girl are going to do great!</p>
           </div>
         </header>
 
@@ -169,19 +169,19 @@ export default function WorkoutSession() {
   return (
     <div className="max-w-sm mx-auto bg-white min-h-screen shadow-xl relative">
       {/* Header with progress */}
-      <header className="bg-gradient-to-r from-sage-400 to-sage-500 px-6 py-6 text-white relative">
+      <header className="bg-gradient-to-r from-sage-400 to-sage-500 px-6 py-6 relative">
         <button 
           onClick={handleExitSession}
           className="absolute top-6 right-6 w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center"
         >
-          <X className="w-4 h-4" />
+          <X className="w-4 h-4 text-gray-800" />
         </button>
         
         <div className="text-center">
-          <h1 className="text-lg font-semibold mb-2">Exercise {currentExerciseIndex + 1} of {sessionExercises.length}</h1>
+          <h1 className="text-lg font-semibold mb-2 text-gray-800">Exercise {currentExerciseIndex + 1} of {sessionExercises.length}</h1>
           <div className="w-full bg-white bg-opacity-20 rounded-full h-2">
             <div 
-              className="bg-white h-2 rounded-full transition-all duration-300"
+              className="bg-gray-800 h-2 rounded-full transition-all duration-300"
               style={{ width: `${progress}%` }}
             ></div>
           </div>

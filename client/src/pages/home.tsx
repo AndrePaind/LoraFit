@@ -28,21 +28,21 @@ export default function Home() {
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-white opacity-5 rounded-full translate-y-8 -translate-x-8"></div>
         <div className="relative z-10">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-2xl font-semibold">Hi Lora! 💕</h1>
+            <h1 className="text-2xl font-semibold text-gray-800">Hi Lora! 💕</h1>
             <div className="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-              <Heart className="w-5 h-5" />
+              <Heart className="w-5 h-5 text-gray-800" />
             </div>
           </div>
-          <p className="text-white text-sm leading-relaxed">Safe prenatal exercises for you and baby girl</p>
+          <p className="text-gray-800 text-sm leading-relaxed">Safe prenatal exercises for you and baby girl</p>
           
           {user && (
             <div className="mt-4 bg-white bg-opacity-15 rounded-lg p-3">
-              <div className="text-xs text-white mb-1">Your Journey</div>
+              <div className="text-xs text-gray-700 mb-1">Your Journey</div>
               <div className="flex items-center">
-                <span className="text-lg font-medium text-white">{user.pregnancyWeek} weeks</span>
+                <span className="text-lg font-medium text-gray-800">{user.pregnancyWeek} weeks</span>
                 <div className="ml-2 flex-1 bg-white bg-opacity-20 h-2 rounded-full">
                   <div 
-                    className="bg-white h-2 rounded-full transition-all duration-300" 
+                    className="bg-gray-800 h-2 rounded-full transition-all duration-300" 
                     style={{ width: `${Math.min((user.pregnancyWeek / 40) * 100, 100)}%` }}
                   ></div>
                 </div>

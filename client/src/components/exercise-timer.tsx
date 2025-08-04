@@ -124,7 +124,7 @@ export default function ExerciseTimer({ exercise, onComplete, onSkip, sessionDur
               onClick={handleStart}
               className="w-16 h-16 rounded-full bg-sage-500 hover:bg-sage-600 p-0"
             >
-              <Play className="w-6 h-6 text-white ml-1" />
+              <Play className="w-6 h-6 text-gray-800 ml-1" />
             </Button>
           </div>
         )}
