@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <div className="max-w-sm mx-auto bg-white min-h-screen shadow-xl relative">
       {/* Header */}
-      <header className="bg-gradient-to-r from-sage-400 to-sage-500 px-6 py-8 text-white relative overflow-hidden">
+      <header className="px-6 py-8 text-white relative overflow-hidden" style={{ background: 'linear-gradient(to right, #8bb4a1, #7aa693)' }}>
         <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -translate-y-8 translate-x-8"></div>
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-white opacity-5 rounded-full translate-y-8 -translate-x-8"></div>
         <div className="relative z-10">
@@ -29,7 +29,7 @@ export default function Home() {
               <Heart className="w-5 h-5" />
             </div>
           </div>
-          <p className="text-sage-50 text-sm leading-relaxed">Safe prenatal exercises for you and your baby</p>
+          <p className="text-white text-sm leading-relaxed">Safe prenatal exercises for you and your baby</p>
           
           {user && (
             <div className="mt-4 bg-white bg-opacity-15 rounded-lg p-3">
