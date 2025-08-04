@@ -21,30 +21,31 @@ export default function Home() {
   const strokeDashoffset = 251.2 - (251.2 * progressPercentage) / 100;
 
   return (
-    <div className="max-w-sm mx-auto bg-white min-h-screen shadow-xl">
+    <div className="max-w-sm mx-auto min-h-screen safe-area-inset">
       {/* Header */}
-      <header className="px-6 py-8 text-white relative overflow-hidden" style={{ background: 'linear-gradient(to right, #8bb4a1, #7aa693)' }}>
+      <header className="px-6 py-8 safe-area-top text-white relative overflow-hidden bg-gradient-to-br from-rose-500 via-rose-400 to-blush-400 rounded-b-3xl">
         <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -translate-y-8 translate-x-8"></div>
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-white opacity-5 rounded-full translate-y-8 -translate-x-8"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black opacity-5"></div>
         <div className="relative z-10">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-2xl font-semibold text-gray-800">Hi Lora! 💕</h1>
-            <div className="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-              <Heart className="w-5 h-5 text-gray-800" />
+            <h1 className="text-2xl font-semibold text-white drop-shadow-sm">Hi Lora! 💕</h1>
+            <div className="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center backdrop-blur-sm">
+              <Heart className="w-5 h-5 text-white" />
             </div>
           </div>
-          <p className="text-gray-800 text-sm leading-relaxed">Safe prenatal exercises for you and baby girl</p>
+          <p className="text-white text-sm leading-relaxed opacity-90">Safe prenatal exercises for you and baby girl</p>
           
           {user && (
             <div className="mt-4 space-y-3">
               {/* Pregnancy Progress */}
-              <div className="bg-white bg-opacity-15 rounded-lg p-3">
-                <div className="text-xs text-gray-700 mb-1">Your Journey</div>
+              <div className="glass-card rounded-xl p-3 smooth-transition">
+                <div className="text-xs text-contrast-light mb-1">Your Journey</div>
                 <div className="flex items-center">
-                  <span className="text-lg font-medium text-gray-800">{user.pregnancyWeek} weeks</span>
-                  <div className="ml-2 flex-1 bg-white bg-opacity-20 h-2 rounded-full">
+                  <span className="text-lg font-medium text-contrast">{user.pregnancyWeek} weeks</span>
+                  <div className="ml-2 flex-1 bg-rose-100 h-2.5 rounded-full">
                     <div 
-                      className="bg-gray-800 h-2 rounded-full transition-all duration-300" 
+                      className="bg-gradient-to-r from-rose-400 to-rose-500 h-2.5 rounded-full transition-all duration-500 shadow-sm" 
                       style={{ width: `${Math.min((user.pregnancyWeek / 40) * 100, 100)}%` }}
                     ></div>
                   </div>
@@ -52,17 +53,17 @@ export default function Home() {
               </div>
               
               {/* Streak Information */}
-              <div className="bg-white bg-opacity-15 rounded-lg p-3">
-                <div className="text-xs text-gray-700 mb-1">Exercise Streak</div>
+              <div className="glass-card rounded-xl p-3 smooth-transition">
+                <div className="text-xs text-contrast-light mb-1">Exercise Streak</div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4">
                     <div className="text-center">
-                      <div className="text-lg font-medium text-gray-800">{user.currentStreak}</div>
-                      <div className="text-xs text-gray-600">Current</div>
+                      <div className="text-lg font-medium text-contrast">{user.currentStreak}</div>
+                      <div className="text-xs text-contrast-light">Current</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-lg font-medium text-gray-800">{user.longestStreak}</div>
-                      <div className="text-xs text-gray-600">Best</div>
+                      <div className="text-lg font-medium text-contrast">{user.longestStreak}</div>
+                      <div className="text-xs text-contrast-light">Best</div>
                     </div>
                   </div>
                   <div className="text-2xl">
@@ -76,51 +77,51 @@ export default function Home() {
       </header>
 
       {/* Main Content */}
-      <main className="p-6 pb-8">
+      <main className="p-6 pb-8 safe-area-bottom">
         {/* Session Selector */}
         <section className="mb-8">
           <div className="text-center mb-6">
-            <h2 className="text-2xl font-bold text-gray-800 mb-3">Choose Your Session</h2>
-            <p className="text-gray-600 text-base leading-relaxed">Pick a duration that feels right for you and baby girl today</p>
+            <h2 className="text-2xl font-bold text-contrast mb-3">Choose Your Session</h2>
+            <p className="text-contrast-light text-base leading-relaxed">Pick a duration that feels right for you and baby girl today</p>
           </div>
           <SessionSelector />
         </section>
 
         {/* Today's Progress */}
         <section className="mb-8">
-          <div className="bg-gradient-to-r from-sage-50 to-lavender-50 rounded-2xl p-5">
+          <div className="glass-card rounded-2xl p-5 smooth-transition">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-800">Today's Progress</h3>
+              <h3 className="text-lg font-semibold text-contrast">Today's Progress</h3>
               <div className="text-2xl">🌸</div>
             </div>
             
             <div className="flex items-center space-x-4">
               <div className="flex-1">
-                <div className="text-sm text-gray-600 mb-2">Sessions Completed</div>
+                <div className="text-sm text-contrast-light mb-2">Sessions Completed</div>
                 <div className="flex items-center">
-                  <span className="text-2xl font-bold text-sage-600">{todaySessions.length}</span>
-                  <span className="text-gray-500 text-sm ml-1">/ {user?.dailyGoal || 1} goal</span>
+                  <span className="text-2xl font-bold text-rose-600">{todaySessions.length}</span>
+                  <span className="text-contrast-light text-sm ml-1">/ {user?.dailyGoal || 1} goal</span>
                 </div>
               </div>
               
               <div className="w-16 h-16 relative">
                 <svg className="w-16 h-16 transform -rotate-90" viewBox="0 0 100 100">
-                  <circle cx="50" cy="50" r="40" stroke="#E5E7EB" strokeWidth="8" fill="none"/>
+                  <circle cx="50" cy="50" r="40" stroke="hsl(340, 30%, 90%)" strokeWidth="8" fill="none"/>
                   <circle 
                     cx="50" 
                     cy="50" 
                     r="40" 
-                    stroke="var(--sage-400)" 
+                    stroke="hsl(340, 75%, 55%)" 
                     strokeWidth="8" 
                     fill="none"
                     strokeDasharray="251.2" 
                     strokeDashoffset={strokeDashoffset}
                     strokeLinecap="round"
-                    className="transition-all duration-500"
+                    className="transition-all duration-500 drop-shadow-sm"
                   />
                 </svg>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-sm font-semibold text-sage-600">{progressPercentage}%</span>
+                  <span className="text-sm font-semibold text-rose-600">{progressPercentage}%</span>
                 </div>
               </div>
             </div>

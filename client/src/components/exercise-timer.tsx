@@ -80,20 +80,20 @@ export default function ExerciseTimer({ exercise, onComplete, onSkip, sessionDur
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'beginner': return 'text-sage-500';
-      case 'intermediate': return 'text-peach-500';
-      case 'advanced': return 'text-red-500';
-      default: return 'text-gray-500';
+      case 'beginner': return 'text-rose-600 bg-rose-100';
+      case 'intermediate': return 'text-blush-600 bg-blush-100';
+      case 'advanced': return 'text-red-600 bg-red-100';
+      default: return 'text-mauve-600 bg-mauve-100';
     }
   };
 
   return (
-    <div className="p-6 h-full flex flex-col">
+    <div className="p-6 h-full flex flex-col safe-area-bottom">
       {/* Exercise Info */}
       <div className="text-center mb-6">
-        <h2 className="text-2xl font-semibold text-gray-800 mb-2">{exercise.name}</h2>
-        <p className="text-gray-600 text-sm mb-4">{exercise.description}</p>
-        <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${getDifficultyColor(exercise.difficulty)} bg-gray-100`}>
+        <h2 className="text-2xl font-semibold text-contrast mb-2">{exercise.name}</h2>
+        <p className="text-contrast-light text-sm mb-4">{exercise.description}</p>
+        <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${getDifficultyColor(exercise.difficulty)}`}>
           {exercise.difficulty.charAt(0).toUpperCase() + exercise.difficulty.slice(1)}
         </span>
       </div>
@@ -119,7 +119,7 @@ export default function ExerciseTimer({ exercise, onComplete, onSkip, sessionDur
               cx="50" 
               cy="50" 
               r="45" 
-              stroke="var(--sage-400)" 
+              stroke="hsl(340, 75%, 55%)" 
               strokeWidth="6" 
               fill="none"
               strokeDasharray={strokeDasharray}
@@ -129,15 +129,15 @@ export default function ExerciseTimer({ exercise, onComplete, onSkip, sessionDur
             />
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-3xl font-bold text-gray-800">
+            <span className="text-3xl font-bold text-contrast">
               {formatTime(timeRemaining)}
             </span>
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-contrast-light">
               / {formatTime(exerciseDuration)}
             </span>
             {countdownNumber && (
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-6xl font-bold text-peach-500 animate-pulse">
+                <span className="text-6xl font-bold text-rose-500 animate-pulse drop-shadow-sm">
                   {countdownNumber}
                 </span>
               </div>
@@ -146,47 +146,47 @@ export default function ExerciseTimer({ exercise, onComplete, onSkip, sessionDur
         </div>
 
         {/* Controls */}
-        <div className="flex items-center justify-center gap-4 mb-8">
+        <div className="flex items-center justify-center gap-6 mb-8">
           <Button
             onClick={handlePlayPause}
-            className="w-14 h-14 rounded-full bg-sage-500 hover:bg-sage-600 p-0"
+            className="w-16 h-16 rounded-full bg-gradient-to-br from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 p-0 smooth-transition shadow-lg hover:shadow-xl border-none"
             disabled={isCompleted}
           >
             {isRunning ? (
-              <Pause className="w-6 h-6 text-gray-800" />
+              <Pause className="w-6 h-6 text-white" />
             ) : (
-              <Play className="w-6 h-6 text-gray-800 ml-1" />
+              <Play className="w-6 h-6 text-white ml-1" />
             )}
           </Button>
           
           <Button
             onClick={handleSkip}
-            className="w-14 h-14 rounded-full bg-peach-500 hover:bg-peach-600 p-0"
+            className="w-16 h-16 rounded-full bg-gradient-to-br from-peach-400 to-peach-500 hover:from-peach-500 hover:to-peach-600 p-0 smooth-transition shadow-lg hover:shadow-xl border-none"
             disabled={isCompleted}
           >
-            <SkipForward className="w-6 h-6 text-gray-800" />
+            <SkipForward className="w-6 h-6 text-white" />
           </Button>
         </div>
         
         {hasStarted && !isCompleted && (
           <div className="text-center mb-6">
-            <p className="text-lg font-medium text-gray-700">Keep going, Lora! 💪</p>
-            <p className="text-sm text-gray-500">
+            <p className="text-lg font-medium text-contrast">Keep going, Lora! 💪</p>
+            <p className="text-sm text-contrast-light">
               {isRunning ? "Timer running - will auto-advance" : "Timer paused"}
             </p>
           </div>
         )}
 
         {/* Exercise Instructions */}
-        <div className="bg-lavender-50 rounded-xl p-4 w-full">
-          <h4 className="font-semibold text-gray-800 mb-2">Instructions</h4>
-          <p className="text-sm text-gray-600 leading-relaxed">{exercise.instructions}</p>
+        <div className="glass-card rounded-xl p-4 w-full smooth-transition">
+          <h4 className="font-semibold text-contrast mb-2">Instructions</h4>
+          <p className="text-sm text-contrast-light leading-relaxed">{exercise.instructions}</p>
         </div>
 
         {isCompleted && (
           <div className="mt-4 text-center">
-            <p className="text-sage-600 font-medium">Exercise completed! 🎉</p>
-            <p className="text-sm text-gray-500">Moving to next exercise...</p>
+            <p className="text-rose-600 font-medium">Exercise completed! 🎉</p>
+            <p className="text-sm text-contrast-light">Moving to next exercise...</p>
           </div>
         )}
       </div>

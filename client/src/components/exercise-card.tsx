@@ -20,20 +20,20 @@ export default function ExerciseCard({ exercise }: ExerciseCardProps) {
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'beginner': return 'bg-sage-100 text-sage-700';
-      case 'intermediate': return 'bg-peach-100 text-peach-700';
+      case 'beginner': return 'bg-rose-100 text-rose-700';
+      case 'intermediate': return 'bg-blush-100 text-blush-600';
       case 'advanced': return 'bg-red-100 text-red-700';
-      default: return 'bg-gray-100 text-gray-700';
+      default: return 'bg-mauve-100 text-mauve-600';
     }
   };
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'breathing': return 'bg-lavender-100 text-lavender-700';
-      case 'stretching': return 'bg-sage-100 text-sage-700';
-      case 'strength': return 'bg-peach-100 text-peach-700';
-      case 'relaxation': return 'bg-blue-100 text-blue-700';
-      default: return 'bg-gray-100 text-gray-700';
+      case 'breathing': return 'bg-blush-100 text-blush-600';
+      case 'stretching': return 'bg-rose-100 text-rose-700';
+      case 'strength': return 'bg-peach-100 text-peach-600';
+      case 'relaxation': return 'bg-mauve-100 text-mauve-600';
+      default: return 'bg-rose-100 text-rose-600';
     }
   };
 
@@ -43,7 +43,7 @@ export default function ExerciseCard({ exercise }: ExerciseCardProps) {
   };
 
   return (
-    <Card className="shadow-sm hover:shadow-md transition-shadow duration-200">
+    <Card className="glass-card smooth-transition hover:shadow-lg hover:scale-[1.02] border-rose-200">
       <CardContent className="p-4">
         {/* Exercise Illustration */}
         <div className="mb-4">
@@ -51,7 +51,7 @@ export default function ExerciseCard({ exercise }: ExerciseCardProps) {
         </div>
         
         <div className="flex items-start justify-between mb-3">
-          <h3 className="font-semibold text-gray-800 text-lg leading-tight pr-2">
+          <h3 className="font-semibold text-contrast text-lg leading-tight pr-2">
             {exercise.name}
           </h3>
           <div className="flex space-x-1">
@@ -61,12 +61,12 @@ export default function ExerciseCard({ exercise }: ExerciseCardProps) {
           </div>
         </div>
         
-        <p className="text-sm text-gray-600 mb-4 leading-relaxed">
+        <p className="text-sm text-contrast-light mb-4 leading-relaxed">
           {exercise.description}
         </p>
         
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4 text-xs text-gray-500">
+          <div className="flex items-center space-x-4 text-xs text-contrast-light">
             <div className="flex items-center space-x-1">
               <Clock className="w-3 h-3" />
               <span>{formatDuration(exercise.duration)}</span>

@@ -99,60 +99,60 @@ export default function WorkoutSession() {
 
   if (!sessionStarted) {
     return (
-      <div className="max-w-sm mx-auto bg-white min-h-screen shadow-xl relative">
+      <div className="max-w-sm mx-auto min-h-screen safe-area-inset">
         {/* Header */}
-        <header className="bg-gradient-to-r from-sage-400 to-sage-500 px-6 py-8 relative">
+        <header className="bg-gradient-to-br from-rose-500 via-rose-400 to-blush-400 px-6 py-8 safe-area-top relative rounded-b-3xl">
           <button 
             onClick={() => window.location.href = "/"}
-            className="absolute top-6 left-6 w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center"
+            className="absolute top-6 left-6 w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center backdrop-blur-sm smooth-transition hover:bg-opacity-30"
           >
-            <ArrowLeft className="w-4 h-4 text-gray-800" />
+            <ArrowLeft className="w-4 h-4 text-white" />
           </button>
           <div className="text-center">
-            <h1 className="text-2xl font-semibold mb-2 text-gray-800">Hi Lora! 💕</h1>
-            <p className="text-gray-700 text-sm">Ready for your {duration}-minute session? You and baby girl are going to do great!</p>
+            <h1 className="text-2xl font-semibold mb-2 text-white drop-shadow-sm">Hi Lora! 💕</h1>
+            <p className="text-white opacity-90 text-sm">Ready for your {duration}-minute session? You and baby girl are going to do great!</p>
           </div>
         </header>
 
         {/* Content */}
-        <main className="p-6">
+        <main className="p-6 safe-area-bottom">
           {/* Start Session Button - moved to top */}
           <div className="mb-8">
             <Button 
               onClick={startSession}
               disabled={createSessionMutation.isPending || sessionExercises.length === 0}
-              className="w-full bg-sage-500 hover:bg-sage-600 py-4 text-lg font-semibold"
+              className="w-full bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 py-4 text-lg font-semibold smooth-transition shadow-lg hover:shadow-xl"
             >
               {createSessionMutation.isPending ? "Starting..." : "Start Session"}
             </Button>
           </div>
 
           <div className="text-center mb-8">
-            <div className="w-32 h-32 bg-sage-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <span className="text-4xl font-bold text-sage-600">{duration}</span>
+            <div className="w-32 h-32 glass-card bg-gradient-to-br from-rose-100 to-blush-100 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+              <span className="text-4xl font-bold text-rose-600">{duration}</span>
             </div>
-            <h2 className="text-xl font-semibold text-gray-800 mb-2">Session Overview</h2>
-            <p className="text-gray-600 mb-6">
+            <h2 className="text-xl font-semibold text-contrast mb-2">Session Overview</h2>
+            <p className="text-contrast-light mb-6">
               You'll be doing {sessionExercises.length} exercises for approximately {duration} minutes.
             </p>
           </div>
 
           {sessionExercises.length > 0 && (
             <div className="mb-8">
-              <h3 className="font-semibold text-gray-800 mb-4">Exercises in this session:</h3>
+              <h3 className="font-semibold text-contrast mb-4">Exercises in this session:</h3>
               <div className="space-y-2">
                 {sessionExercises.map((exercise, index) => (
-                  <div key={exercise.id} className="flex items-center justify-between bg-gray-50 rounded-lg p-3">
-                    <span className="text-sm font-medium">{exercise.name}</span>
-                    <span className="text-xs text-gray-500">{duration === 5 ? '43s' : '86s'}</span>
+                  <div key={exercise.id} className="flex items-center justify-between glass-card rounded-lg p-3 smooth-transition">
+                    <span className="text-sm font-medium text-contrast">{exercise.name}</span>
+                    <span className="text-xs text-contrast-light">{duration === 5 ? '43s' : '86s'}</span>
                   </div>
                 ))}
               </div>
             </div>
           )}
 
-          <div className="bg-peach-50 border border-peach-200 rounded-lg p-4">
-            <p className="text-sm text-gray-600 text-center">
+          <div className="glass-card bg-gradient-to-br from-peach-50 to-rose-50 border border-rose-200 rounded-xl p-4">
+            <p className="text-sm text-contrast-light text-center">
               Lora, remember to listen to your body and baby girl. Stay hydrated and take breaks whenever needed! 💕
             </p>
           </div>
@@ -163,31 +163,31 @@ export default function WorkoutSession() {
 
   if (!currentExercise) {
     return (
-      <div className="max-w-sm mx-auto bg-white min-h-screen shadow-xl flex items-center justify-center">
+      <div className="max-w-sm mx-auto min-h-screen safe-area-inset flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-sage-500 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading exercises...</p>
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-rose-500 mx-auto mb-4"></div>
+          <p className="text-contrast-light">Loading exercises...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-sm mx-auto bg-white min-h-screen shadow-xl relative">
+    <div className="max-w-sm mx-auto min-h-screen safe-area-inset relative">
       {/* Header with progress */}
-      <header className="bg-gradient-to-r from-sage-400 to-sage-500 px-6 py-6 relative">
+      <header className="bg-gradient-to-br from-rose-500 via-rose-400 to-blush-400 px-6 py-6 safe-area-top relative rounded-b-3xl">
         <button 
           onClick={handleExitSession}
-          className="absolute top-6 right-6 w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center"
+          className="absolute top-6 right-6 w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center backdrop-blur-sm smooth-transition hover:bg-opacity-30"
         >
-          <X className="w-4 h-4 text-gray-800" />
+          <X className="w-4 h-4 text-white" />
         </button>
         
         <div className="text-center">
-          <h1 className="text-lg font-semibold mb-2 text-gray-800">Exercise {currentExerciseIndex + 1} of {sessionExercises.length}</h1>
-          <div className="w-full bg-white bg-opacity-20 rounded-full h-2">
+          <h1 className="text-lg font-semibold mb-2 text-white drop-shadow-sm">Exercise {currentExerciseIndex + 1} of {sessionExercises.length}</h1>
+          <div className="w-full bg-white bg-opacity-20 rounded-full h-3 backdrop-blur-sm">
             <div 
-              className="bg-gray-800 h-2 rounded-full transition-all duration-300"
+              className="bg-white h-3 rounded-full smooth-transition shadow-sm"
               style={{ width: `${progress}%` }}
             ></div>
           </div>
