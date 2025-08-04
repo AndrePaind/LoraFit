@@ -71,7 +71,7 @@ export default function ExerciseTimer({ exercise, onComplete, onSkip }: Exercise
 
       {/* Exercise Illustration */}
       <div className="mb-6">
-        <ExerciseIllustration exerciseId={exercise.id} className="h-24 w-full" />
+        <ExerciseIllustration exerciseId={exercise.id} className="h-40 w-full" />
       </div>
 
       {/* Timer */}

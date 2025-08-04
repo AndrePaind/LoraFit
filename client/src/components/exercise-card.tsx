@@ -47,7 +47,7 @@ export default function ExerciseCard({ exercise }: ExerciseCardProps) {
       <CardContent className="p-4">
         {/* Exercise Illustration */}
         <div className="mb-4">
-          <ExerciseIllustration exerciseId={exercise.id} className="h-20 w-full" />
+          <ExerciseIllustration exerciseId={exercise.id} className="h-32 w-full" />
         </div>
         
         <div className="flex items-start justify-between mb-3">
