@@ -18,6 +18,11 @@ export default function ExerciseTimer({ exercise, onComplete, onSkip, sessionDur
   
   // Calculate exercise duration based on session type
   const exerciseDuration = sessionDuration === 5 ? 43 : 86; // 5 min = 43s each, 10 min = 86s each
+
+  // Create a callback that handles completion
+  const handleTimerComplete = () => {
+    onComplete();
+  };
   
   const { 
     timeRemaining, 
@@ -29,7 +34,7 @@ export default function ExerciseTimer({ exercise, onComplete, onSkip, sessionDur
     resetTimer
   } = useAutoTimer({
     duration: exerciseDuration,
-    onComplete,
+    onComplete: handleTimerComplete,
     onCountdown: (seconds) => {
       setCountdownNumber(seconds);
       // Clear countdown number after showing
@@ -37,13 +42,18 @@ export default function ExerciseTimer({ exercise, onComplete, onSkip, sessionDur
     }
   });
 
-  // Auto-start the timer when exercise loads
+  // Auto-start the timer when exercise changes
   useEffect(() => {
-    if (!hasStarted) {
-      setHasStarted(true);
+    setHasStarted(true);
+    setCountdownNumber(null);
+    
+    // Start the timer immediately for new exercise
+    const timer = setTimeout(() => {
       startTimer();
-    }
-  }, [exercise.id, hasStarted, startTimer]);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [exercise.id]);
 
   const handlePlayPause = () => {
     if (isRunning) {

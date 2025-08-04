@@ -119,6 +119,10 @@ export function useAutoTimer({ duration, onComplete, onCountdown }: UseAutoTimer
   useEffect(() => {
     setTimeRemaining(duration);
     setIsCompleted(false);
+    setIsRunning(false);
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
   }, [duration]);
 
   return {
