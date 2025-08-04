@@ -96,7 +96,9 @@ export function useAutoTimer({ duration, onComplete, onCountdown }: UseAutoTimer
             setIsCompleted(true);
             // Play completion sound
             setTimeout(() => playBeep(1200, 300), 100);
-            setTimeout(onComplete, 1000); // Auto-advance after 1 second
+            setTimeout(() => {
+              onComplete?.();
+            }, 1000); // Auto-advance after 1 second
             return 0;
           }
           
