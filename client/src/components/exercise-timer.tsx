@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Play, SkipForward } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Play, Pause, SkipForward } from "lucide-react";
 import { type Exercise } from "@shared/schema";
 import { Button } from "@/components/ui/button";
 import { useAutoTimer } from "@/hooks/use-auto-timer";
@@ -24,6 +24,8 @@ export default function ExerciseTimer({ exercise, onComplete, onSkip, sessionDur
     isRunning, 
     isCompleted, 
     startTimer,
+    pauseTimer,
+    resumeTimer,
     resetTimer
   } = useAutoTimer({
     duration: exerciseDuration,
@@ -35,9 +37,24 @@ export default function ExerciseTimer({ exercise, onComplete, onSkip, sessionDur
     }
   });
 
-  const handleStart = () => {
-    setHasStarted(true);
-    startTimer();
+  // Auto-start the timer when exercise loads
+  useEffect(() => {
+    if (!hasStarted) {
+      setHasStarted(true);
+      startTimer();
+    }
+  }, [exercise.id, hasStarted, startTimer]);
+
+  const handlePlayPause = () => {
+    if (isRunning) {
+      pauseTimer();
+    } else {
+      resumeTimer();
+    }
+  };
+
+  const handleSkip = () => {
+    onSkip();
   };
 
   const formatTime = (seconds: number) => {
@@ -118,21 +135,34 @@ export default function ExerciseTimer({ exercise, onComplete, onSkip, sessionDur
         </div>
 
         {/* Controls */}
-        {!hasStarted && (
-          <div className="flex items-center justify-center mb-8">
-            <Button
-              onClick={handleStart}
-              className="w-16 h-16 rounded-full bg-sage-500 hover:bg-sage-600 p-0"
-            >
+        <div className="flex items-center justify-center gap-4 mb-8">
+          <Button
+            onClick={handlePlayPause}
+            className="w-14 h-14 rounded-full bg-sage-500 hover:bg-sage-600 p-0"
+            disabled={isCompleted}
+          >
+            {isRunning ? (
+              <Pause className="w-6 h-6 text-gray-800" />
+            ) : (
               <Play className="w-6 h-6 text-gray-800 ml-1" />
-            </Button>
-          </div>
-        )}
+            )}
+          </Button>
+          
+          <Button
+            onClick={handleSkip}
+            className="w-14 h-14 rounded-full bg-peach-500 hover:bg-peach-600 p-0"
+            disabled={isCompleted}
+          >
+            <SkipForward className="w-6 h-6 text-gray-800" />
+          </Button>
+        </div>
         
         {hasStarted && !isCompleted && (
-          <div className="text-center mb-8">
+          <div className="text-center mb-6">
             <p className="text-lg font-medium text-gray-700">Keep going, Lora! 💪</p>
-            <p className="text-sm text-gray-500">Timer will auto-advance</p>
+            <p className="text-sm text-gray-500">
+              {isRunning ? "Timer running - will auto-advance" : "Timer paused"}
+            </p>
           </div>
         )}
 

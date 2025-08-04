@@ -60,6 +60,16 @@ export function useAutoTimer({ duration, onComplete, onCountdown }: UseAutoTimer
     setIsCompleted(false);
   };
 
+  const pauseTimer = () => {
+    setIsRunning(false);
+  };
+
+  const resumeTimer = () => {
+    if (!isCompleted && timeRemaining > 0) {
+      setIsRunning(true);
+    }
+  };
+
   const resetTimer = () => {
     setTimeRemaining(duration);
     setIsRunning(false);
@@ -116,6 +126,8 @@ export function useAutoTimer({ duration, onComplete, onCountdown }: UseAutoTimer
     isRunning,
     isCompleted,
     startTimer,
+    pauseTimer,
+    resumeTimer,
     resetTimer,
   };
 }
