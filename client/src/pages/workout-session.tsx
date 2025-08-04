@@ -110,6 +110,17 @@ export default function WorkoutSession() {
 
         {/* Content */}
         <main className="p-6">
+          {/* Start Session Button - moved to top */}
+          <div className="mb-8">
+            <Button 
+              onClick={startSession}
+              disabled={createSessionMutation.isPending || sessionExercises.length === 0}
+              className="w-full bg-sage-500 hover:bg-sage-600 py-4 text-lg font-semibold"
+            >
+              {createSessionMutation.isPending ? "Starting..." : "Start Session"}
+            </Button>
+          </div>
+
           <div className="text-center mb-8">
             <div className="w-32 h-32 bg-sage-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <span className="text-4xl font-bold text-sage-600">{duration}</span>
@@ -134,20 +145,10 @@ export default function WorkoutSession() {
             </div>
           )}
 
-          <div className="space-y-4">
-            <Button 
-              onClick={startSession}
-              disabled={createSessionMutation.isPending || sessionExercises.length === 0}
-              className="w-full bg-sage-500 hover:bg-sage-600 py-3 text-lg"
-            >
-              {createSessionMutation.isPending ? "Starting..." : "Start Session"}
-            </Button>
-            
-            <div className="bg-peach-50 border border-peach-200 rounded-lg p-4">
-              <p className="text-sm text-gray-600 text-center">
-                Lora, remember to listen to your body and baby girl. Stay hydrated and take breaks whenever needed! 💕
-              </p>
-            </div>
+          <div className="bg-peach-50 border border-peach-200 rounded-lg p-4">
+            <p className="text-sm text-gray-600 text-center">
+              Lora, remember to listen to your body and baby girl. Stay hydrated and take breaks whenever needed! 💕
+            </p>
           </div>
         </main>
       </div>
