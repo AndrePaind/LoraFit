@@ -2,7 +2,7 @@
 
 ## Overview
 
-Gentle Moves is a mobile-first web application designed for prenatal fitness and wellness. The app provides safe exercise routines specifically tailored for pregnant individuals, featuring pregnancy-safe exercises across categories like breathing, stretching, strength training, and relaxation. Users can track their pregnancy progress, complete workout sessions of varying durations (5, 10, or 15 minutes), and monitor their daily fitness goals throughout their pregnancy journey.
+Gentle Moves is a mobile-first web application designed for prenatal fitness and wellness. The app provides safe exercise routines specifically tailored for pregnant individuals, featuring 7 specific pregnancy-safe exercises with actual user-provided illustrations. Users can track their pregnancy progress, complete workout sessions of varying durations (5, 10, or 15 minutes), and monitor their daily fitness goals throughout their pregnancy journey. The app now focuses on a simplified, single-page experience without complex navigation.
 
 ## User Preferences
 
@@ -16,7 +16,7 @@ Preferred communication style: Simple, everyday language.
 - **Styling**: Tailwind CSS with custom pregnancy-themed color palette (sage, lavender, peach colors)
 - **State Management**: TanStack Query for server state management and caching
 - **Routing**: Wouter for lightweight client-side routing
-- **Mobile-First Design**: Responsive design optimized for mobile devices with bottom navigation
+- **Mobile-First Design**: Responsive design optimized for mobile devices with simplified single-page interface
 
 ### Backend Architecture
 - **Runtime**: Node.js with Express.js framework
@@ -73,3 +73,17 @@ Preferred communication style: Simple, everyday language.
 - **zod**: Schema validation and type inference
 - **react-hook-form**: Form state management
 - **embla-carousel-react**: Touch-friendly carousel component
+
+## Recent Changes (January 2025)
+
+### App Simplification
+- Removed bottom navigation and multiple menu pages (exercises, progress, profile)
+- Created streamlined single-page experience focused directly on exercises
+- Combined exercise library directly into the main home page
+- Simplified routing to only include home page and workout session page
+
+### Exercise Implementation
+- Replaced all exercises with user's 7 specific exercises: Grounding Yourself, Cat and Cow, Hip Stretch, Lunges, Squats, Windmill, and Child Pose
+- Integrated actual user-provided exercise images instead of SVG illustrations
+- Increased image sizes significantly for better visibility (exercise cards: h-32, workout timer: h-40)
+- Purple-themed exercise illustrations provided by user

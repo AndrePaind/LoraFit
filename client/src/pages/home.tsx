@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { Heart, Shield, TrendingUp, UserCheck } from "lucide-react";
-import { type User, type WorkoutSession } from "@shared/schema";
+import { Heart } from "lucide-react";
+import { type User, type WorkoutSession, type Exercise } from "@shared/schema";
 import SessionSelector from "@/components/session-selector";
-import BottomNavigation from "@/components/bottom-navigation";
+import ExerciseCard from "@/components/exercise-card";
 
 export default function Home() {
   const { data: user } = useQuery<User>({
@@ -13,11 +13,15 @@ export default function Home() {
     queryKey: ["/api/sessions/today"],
   });
 
+  const { data: exercises = [], isLoading } = useQuery<Exercise[]>({
+    queryKey: ["/api/exercises"],
+  });
+
   const progressPercentage = user ? Math.round((todaySessions.length / user.dailyGoal) * 100) : 0;
   const strokeDashoffset = 251.2 - (251.2 * progressPercentage) / 100;
 
   return (
-    <div className="max-w-sm mx-auto bg-white min-h-screen shadow-xl relative">
+    <div className="max-w-sm mx-auto bg-white min-h-screen shadow-xl">
       {/* Header */}
       <header className="px-6 py-8 text-white relative overflow-hidden" style={{ background: 'linear-gradient(to right, #8bb4a1, #7aa693)' }}>
         <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -translate-y-8 translate-x-8"></div>
@@ -49,7 +53,7 @@ export default function Home() {
       </header>
 
       {/* Main Content */}
-      <main className="p-6 pb-24">
+      <main className="p-6 pb-8">
         {/* Session Selector */}
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-800 mb-2">Choose Your Session</h2>
@@ -111,23 +115,24 @@ export default function Home() {
 
         
 
-        {/* Quick Actions */}
+        {/* Exercise Library */}
         <section className="mb-8">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Quick Actions</h3>
+          <h3 className="text-lg font-semibold text-gray-800 mb-4">Your Exercise Library</h3>
+          <p className="text-gray-600 text-sm mb-6">Safe prenatal exercises for every stage</p>
           
-          <div className="grid grid-cols-1 gap-4">
-            <button className="bg-white border border-gray-200 rounded-xl p-4 text-center shadow-sm hover:shadow-md transition-shadow duration-200">
-              <div className="w-12 h-12 bg-lavender-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <TrendingUp className="w-6 h-6 text-lavender-500" />
-              </div>
-              <div className="text-sm font-medium text-gray-800">View Progress</div>
-              <div className="text-xs text-gray-500 mt-1">Track your journey</div>
-            </button>
-          </div>
+          {isLoading ? (
+            <div className="flex items-center justify-center py-8">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-sage-500"></div>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {exercises.map(exercise => (
+                <ExerciseCard key={exercise.id} exercise={exercise} />
+              ))}
+            </div>
+          )}
         </section>
       </main>
-
-      <BottomNavigation currentPage="home" />
     </div>
   );
 }
