@@ -130,6 +130,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Complete session and update streak
+  app.patch("/api/sessions/:sessionId", async (req, res) => {
+    try {
+      const { sessionId } = req.params;
+      const { exercisesCompleted } = req.body;
+      
+      // Update the session
+      const session = await storage.getSessionById(sessionId);
+      if (!session) {
+        return res.status(404).json({ message: "Session not found" });
+      }
+
+      // Update streak
+      const updatedUser = await storage.updateUserStreak("default-user");
+      
+      res.json({ 
+        message: "Session completed", 
+        user: updatedUser,
+        exercisesCompleted 
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to complete session" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

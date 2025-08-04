@@ -8,6 +8,9 @@ export const users = pgTable("users", {
   username: text("username").notNull().unique(),
   pregnancyWeek: integer("pregnancy_week").notNull().default(12),
   dailyGoal: integer("daily_goal").notNull().default(3),
+  currentStreak: integer("current_streak").notNull().default(0),
+  longestStreak: integer("longest_streak").notNull().default(0),
+  lastWorkoutDate: timestamp("last_workout_date"),
   createdAt: timestamp("created_at").notNull().default(sql`now()`),
 });
 

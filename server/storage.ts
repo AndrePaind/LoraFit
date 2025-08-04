@@ -7,6 +7,7 @@ export interface IStorage {
   getUserByUsername(username: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
   updateUser(id: string, updates: Partial<User>): Promise<User | undefined>;
+  updateUserStreak(userId: string): Promise<User | undefined>;
 
   // Exercise operations
   getAllExercises(): Promise<Exercise[]>;
@@ -47,6 +48,9 @@ export class MemStorage implements IStorage {
       username: "Lora",
       pregnancyWeek: 24,
       dailyGoal: 1,
+      currentStreak: 0,
+      longestStreak: 0,
+      lastWorkoutDate: null,
       createdAt: new Date(),
     };
     this.users.set(defaultUser.id, defaultUser);
@@ -150,6 +154,9 @@ export class MemStorage implements IStorage {
     const user: User = { 
       ...insertUser, 
       id, 
+      currentStreak: 0,
+      longestStreak: 0,
+      lastWorkoutDate: null,
       createdAt: new Date() 
     };
     this.users.set(id, user);
@@ -162,6 +169,52 @@ export class MemStorage implements IStorage {
     
     const updatedUser = { ...user, ...updates };
     this.users.set(id, updatedUser);
+    return updatedUser;
+  }
+
+  async updateUserStreak(userId: string): Promise<User | undefined> {
+    const user = this.users.get(userId);
+    if (!user) return undefined;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    // Check if user worked out today
+    const todaySessions = await this.getTodaySessions(userId);
+    if (todaySessions.length === 0) {
+      return user; // No workout today, don't update streak
+    }
+
+    let newStreak = user.currentStreak;
+    const lastWorkoutDate = user.lastWorkoutDate;
+
+    if (!lastWorkoutDate) {
+      // First workout ever
+      newStreak = 1;
+    } else {
+      const lastWorkout = new Date(lastWorkoutDate);
+      lastWorkout.setHours(0, 0, 0, 0);
+
+      if (lastWorkout.getTime() === yesterday.getTime()) {
+        // Consecutive day - increment streak
+        newStreak = user.currentStreak + 1;
+      } else if (lastWorkout.getTime() < yesterday.getTime()) {
+        // Missed a day(s) - reset streak
+        newStreak = 1;
+      }
+      // If lastWorkout is today, don't change streak (already counted)
+    }
+
+    const updatedUser = {
+      ...user,
+      currentStreak: newStreak,
+      longestStreak: Math.max(user.longestStreak, newStreak),
+      lastWorkoutDate: today,
+    };
+
+    this.users.set(userId, updatedUser);
     return updatedUser;
   }
 
@@ -183,6 +236,7 @@ export class MemStorage implements IStorage {
       ...insertExercise,
       id,
       isPregnancySafe: true,
+      imageUrl: insertExercise.imageUrl || null,
     };
     this.exercises.set(id, exercise);
     return exercise;
@@ -193,6 +247,7 @@ export class MemStorage implements IStorage {
     const session: WorkoutSession = {
       ...insertSession,
       id,
+      exercisesCompleted: insertSession.exercisesCompleted || 0,
       completedAt: new Date(),
     };
     this.workoutSessions.set(id, session);
@@ -225,6 +280,8 @@ export class MemStorage implements IStorage {
     const sessionExercise: SessionExercise = {
       ...insertSessionExercise,
       id,
+      completed: insertSessionExercise.completed || false,
+      timeSpent: insertSessionExercise.timeSpent || 0,
     };
     this.sessionExercises.set(id, sessionExercise);
     return sessionExercise;
@@ -244,4 +301,162 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+import { users, exercises, workoutSessions, sessionExercises } from "@shared/schema";
+import { db } from "./db";
+import { eq, and, gte, lt } from "drizzle-orm";
+
+export class DatabaseStorage implements IStorage {
+  async getUser(id: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || undefined;
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user || undefined;
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const [user] = await db
+      .insert(users)
+      .values(insertUser)
+      .returning();
+    return user;
+  }
+
+  async updateUser(id: string, updates: Partial<User>): Promise<User | undefined> {
+    const [user] = await db
+      .update(users)
+      .set(updates)
+      .where(eq(users.id, id))
+      .returning();
+    return user || undefined;
+  }
+
+  async updateUserStreak(userId: string): Promise<User | undefined> {
+    const user = await this.getUser(userId);
+    if (!user) return undefined;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    // Check if user worked out today
+    const todaySessions = await this.getTodaySessions(userId);
+    if (todaySessions.length === 0) {
+      return user; // No workout today, don't update streak
+    }
+
+    let newStreak = user.currentStreak;
+    const lastWorkoutDate = user.lastWorkoutDate;
+
+    if (!lastWorkoutDate) {
+      // First workout ever
+      newStreak = 1;
+    } else {
+      const lastWorkout = new Date(lastWorkoutDate);
+      lastWorkout.setHours(0, 0, 0, 0);
+
+      if (lastWorkout.getTime() === yesterday.getTime()) {
+        // Consecutive day - increment streak
+        newStreak = user.currentStreak + 1;
+      } else if (lastWorkout.getTime() < yesterday.getTime()) {
+        // Missed a day(s) - reset streak
+        newStreak = 1;
+      }
+      // If lastWorkout is today, don't change streak (already counted)
+    }
+
+    const [updatedUser] = await db
+      .update(users)
+      .set({
+        currentStreak: newStreak,
+        longestStreak: Math.max(user.longestStreak, newStreak),
+        lastWorkoutDate: today,
+      })
+      .where(eq(users.id, userId))
+      .returning();
+
+    return updatedUser;
+  }
+
+  async getAllExercises(): Promise<Exercise[]> {
+    return await db.select().from(exercises);
+  }
+
+  async getExercise(id: string): Promise<Exercise | undefined> {
+    const [exercise] = await db.select().from(exercises).where(eq(exercises.id, id));
+    return exercise || undefined;
+  }
+
+  async getExercisesByCategory(category: string): Promise<Exercise[]> {
+    return await db.select().from(exercises).where(eq(exercises.category, category));
+  }
+
+  async createExercise(insertExercise: InsertExercise): Promise<Exercise> {
+    const [exercise] = await db
+      .insert(exercises)
+      .values(insertExercise)
+      .returning();
+    return exercise;
+  }
+
+  async createWorkoutSession(insertSession: InsertWorkoutSession): Promise<WorkoutSession> {
+    const [session] = await db
+      .insert(workoutSessions)
+      .values(insertSession)
+      .returning();
+    return session;
+  }
+
+  async getUserSessions(userId: string): Promise<WorkoutSession[]> {
+    return await db.select().from(workoutSessions).where(eq(workoutSessions.userId, userId));
+  }
+
+  async getTodaySessions(userId: string): Promise<WorkoutSession[]> {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    return await db
+      .select()
+      .from(workoutSessions)
+      .where(
+        and(
+          eq(workoutSessions.userId, userId),
+          gte(workoutSessions.completedAt, today),
+          lt(workoutSessions.completedAt, tomorrow)
+        )
+      );
+  }
+
+  async getSessionById(id: string): Promise<WorkoutSession | undefined> {
+    const [session] = await db.select().from(workoutSessions).where(eq(workoutSessions.id, id));
+    return session || undefined;
+  }
+
+  async createSessionExercise(insertSessionExercise: InsertSessionExercise): Promise<SessionExercise> {
+    const [sessionExercise] = await db
+      .insert(sessionExercises)
+      .values(insertSessionExercise)
+      .returning();
+    return sessionExercise;
+  }
+
+  async getSessionExercises(sessionId: string): Promise<SessionExercise[]> {
+    return await db.select().from(sessionExercises).where(eq(sessionExercises.sessionId, sessionId));
+  }
+
+  async updateSessionExercise(id: string, updates: Partial<SessionExercise>): Promise<SessionExercise | undefined> {
+    const [sessionExercise] = await db
+      .update(sessionExercises)
+      .set(updates)
+      .where(eq(sessionExercises.id, id))
+      .returning();
+    return sessionExercise || undefined;
+  }
+}
+
+export const storage = new DatabaseStorage();

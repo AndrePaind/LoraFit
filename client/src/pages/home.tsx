@@ -36,15 +36,38 @@ export default function Home() {
           <p className="text-gray-800 text-sm leading-relaxed">Safe prenatal exercises for you and baby girl</p>
           
           {user && (
-            <div className="mt-4 bg-white bg-opacity-15 rounded-lg p-3">
-              <div className="text-xs text-gray-700 mb-1">Your Journey</div>
-              <div className="flex items-center">
-                <span className="text-lg font-medium text-gray-800">{user.pregnancyWeek} weeks</span>
-                <div className="ml-2 flex-1 bg-white bg-opacity-20 h-2 rounded-full">
-                  <div 
-                    className="bg-gray-800 h-2 rounded-full transition-all duration-300" 
-                    style={{ width: `${Math.min((user.pregnancyWeek / 40) * 100, 100)}%` }}
-                  ></div>
+            <div className="mt-4 space-y-3">
+              {/* Pregnancy Progress */}
+              <div className="bg-white bg-opacity-15 rounded-lg p-3">
+                <div className="text-xs text-gray-700 mb-1">Your Journey</div>
+                <div className="flex items-center">
+                  <span className="text-lg font-medium text-gray-800">{user.pregnancyWeek} weeks</span>
+                  <div className="ml-2 flex-1 bg-white bg-opacity-20 h-2 rounded-full">
+                    <div 
+                      className="bg-gray-800 h-2 rounded-full transition-all duration-300" 
+                      style={{ width: `${Math.min((user.pregnancyWeek / 40) * 100, 100)}%` }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Streak Information */}
+              <div className="bg-white bg-opacity-15 rounded-lg p-3">
+                <div className="text-xs text-gray-700 mb-1">Exercise Streak</div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    <div className="text-center">
+                      <div className="text-lg font-medium text-gray-800">{user.currentStreak}</div>
+                      <div className="text-xs text-gray-600">Current</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-lg font-medium text-gray-800">{user.longestStreak}</div>
+                      <div className="text-xs text-gray-600">Best</div>
+                    </div>
+                  </div>
+                  <div className="text-2xl">
+                    {user.currentStreak >= 7 ? '🔥' : user.currentStreak >= 3 ? '⭐' : '🌱'}
+                  </div>
                 </div>
               </div>
             </div>

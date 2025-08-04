@@ -47,6 +47,7 @@ export default function WorkoutSession() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/sessions"] });
       queryClient.invalidateQueries({ queryKey: ["/api/sessions/today"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/user"] });
       toast({
         title: "Amazing work, Lora! 🎉",
         description: "You and baby girl did great today!",
