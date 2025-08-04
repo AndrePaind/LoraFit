@@ -109,23 +109,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Safety Reminder */}
-        <section className="mb-8">
-          <div className="bg-peach-50 border-l-4 border-peach-400 rounded-lg p-4">
-            <div className="flex items-start">
-              <div className="w-8 h-8 bg-peach-400 rounded-full flex items-center justify-center mr-3 mt-1">
-                <Shield className="w-4 h-4 text-white" />
-              </div>
-              <div className="flex-1">
-                <h4 className="font-semibold text-gray-800 mb-1">Safety First</h4>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  Listen to your body and stop if you feel dizzy, short of breath, or experience any discomfort. 
-                  Stay hydrated and consult your doctor if you have any concerns.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+        
 
         {/* Quick Actions */}
         <section className="mb-8">
