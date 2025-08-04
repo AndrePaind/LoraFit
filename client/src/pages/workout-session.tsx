@@ -109,11 +109,10 @@ export default function WorkoutSession() {
             <ArrowLeft className="w-4 h-4 text-white" />
           </button>
           <div className="text-center">
-            <h1 className="text-2xl font-semibold mb-2 text-white drop-shadow-sm">Hi Lora! 💕</h1>
+            <h1 className="text-2xl font-semibold mb-2 text-white drop-shadow-sm">Hi Lora!</h1>
             <p className="text-white opacity-90 text-sm">Ready for your {duration}-minute session? You and baby girl are going to do great!</p>
           </div>
         </header>
-
         {/* Content */}
         <main className="p-6 safe-area-bottom">
           {/* Start Session Button - moved to top */}
