@@ -28,12 +28,12 @@ export default function Home() {
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-white opacity-5 rounded-full translate-y-8 -translate-x-8"></div>
         <div className="relative z-10">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-2xl font-semibold">Gentle Moves</h1>
+            <h1 className="text-2xl font-semibold">Hi Lora! 💕</h1>
             <div className="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
               <Heart className="w-5 h-5" />
             </div>
           </div>
-          <p className="text-white text-sm leading-relaxed">Safe prenatal exercises for you and your baby</p>
+          <p className="text-white text-sm leading-relaxed">Safe prenatal exercises for you and baby girl</p>
           
           {user && (
             <div className="mt-4 bg-white bg-opacity-15 rounded-lg p-3">
@@ -74,7 +74,7 @@ export default function Home() {
                 <div className="text-sm text-gray-600 mb-2">Sessions Completed</div>
                 <div className="flex items-center">
                   <span className="text-2xl font-bold text-sage-600">{todaySessions.length}</span>
-                  <span className="text-gray-500 text-sm ml-1">/ {user?.dailyGoal || 3} goal</span>
+                  <span className="text-gray-500 text-sm ml-1">/ {user?.dailyGoal || 1} goal</span>
                 </div>
               </div>
               
@@ -101,7 +101,7 @@ export default function Home() {
             </div>
             
             <div className="mt-4 flex space-x-2">
-              {Array.from({ length: user?.dailyGoal || 3 }).map((_, index) => (
+              {Array.from({ length: user?.dailyGoal || 1 }).map((_, index) => (
                 <div 
                   key={index}
                   className={`w-3 h-3 rounded-full ${

@@ -1,42 +1,43 @@
 import { useState } from "react";
-import { Play, Pause, SkipForward } from "lucide-react";
+import { Play, SkipForward } from "lucide-react";
 import { type Exercise } from "@shared/schema";
 import { Button } from "@/components/ui/button";
-import { useTimer } from "@/hooks/use-timer";
+import { useAutoTimer } from "@/hooks/use-auto-timer";
 import { ExerciseIllustration } from "./exercise-illustrations";
 
 interface ExerciseTimerProps {
   exercise: Exercise;
   onComplete: () => void;
   onSkip: () => void;
+  sessionDuration: number;
 }
 
-export default function ExerciseTimer({ exercise, onComplete, onSkip }: ExerciseTimerProps) {
+export default function ExerciseTimer({ exercise, onComplete, onSkip, sessionDuration }: ExerciseTimerProps) {
   const [hasStarted, setHasStarted] = useState(false);
+  const [countdownNumber, setCountdownNumber] = useState<number | null>(null);
+  
+  // Calculate exercise duration based on session type
+  const exerciseDuration = sessionDuration === 5 ? 43 : 86; // 5 min = 43s each, 10 min = 86s each
   
   const { 
     timeRemaining, 
     isRunning, 
     isCompleted, 
-    startTimer, 
-    pauseTimer, 
-    resumeTimer 
-  } = useTimer({
-    duration: exercise.duration,
-    onComplete: () => {
-      setTimeout(onComplete, 1000); // Small delay before moving to next exercise
+    startTimer,
+    resetTimer
+  } = useAutoTimer({
+    duration: exerciseDuration,
+    onComplete,
+    onCountdown: (seconds) => {
+      setCountdownNumber(seconds);
+      // Clear countdown number after showing
+      setTimeout(() => setCountdownNumber(null), 800);
     }
   });
 
-  const handlePlayPause = () => {
-    if (!hasStarted) {
-      setHasStarted(true);
-      startTimer();
-    } else if (isRunning) {
-      pauseTimer();
-    } else {
-      resumeTimer();
-    }
+  const handleStart = () => {
+    setHasStarted(true);
+    startTimer();
   };
 
   const formatTime = (seconds: number) => {
@@ -45,7 +46,7 @@ export default function ExerciseTimer({ exercise, onComplete, onSkip }: Exercise
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const progressPercentage = ((exercise.duration - timeRemaining) / exercise.duration) * 100;
+  const progressPercentage = ((exerciseDuration - timeRemaining) / exerciseDuration) * 100;
   const strokeDasharray = 2 * Math.PI * 45; // circumference
   const strokeDashoffset = strokeDasharray - (strokeDasharray * progressPercentage) / 100;
 
@@ -104,36 +105,36 @@ export default function ExerciseTimer({ exercise, onComplete, onSkip }: Exercise
               {formatTime(timeRemaining)}
             </span>
             <span className="text-xs text-gray-500">
-              / {formatTime(exercise.duration)}
+              / {formatTime(exerciseDuration)}
             </span>
+            {countdownNumber && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-6xl font-bold text-peach-500 animate-pulse">
+                  {countdownNumber}
+                </span>
+              </div>
+            )}
           </div>
         </div>
 
         {/* Controls */}
-        <div className="flex items-center justify-center space-x-4 mb-8">
-          <Button
-            variant="outline"
-            size="lg"
-            onClick={onSkip}
-            className="w-12 h-12 rounded-full p-0"
-          >
-            <SkipForward className="w-5 h-5" />
-          </Button>
-          
-          <Button
-            onClick={handlePlayPause}
-            className="w-16 h-16 rounded-full bg-sage-500 hover:bg-sage-600 p-0"
-            disabled={isCompleted}
-          >
-            {isRunning ? (
-              <Pause className="w-6 h-6 text-white" />
-            ) : (
+        {!hasStarted && (
+          <div className="flex items-center justify-center mb-8">
+            <Button
+              onClick={handleStart}
+              className="w-16 h-16 rounded-full bg-sage-500 hover:bg-sage-600 p-0"
+            >
               <Play className="w-6 h-6 text-white ml-1" />
-            )}
-          </Button>
-          
-          <div className="w-12 h-12"></div> {/* Spacer for symmetry */}
-        </div>
+            </Button>
+          </div>
+        )}
+        
+        {hasStarted && !isCompleted && (
+          <div className="text-center mb-8">
+            <p className="text-lg font-medium text-gray-700">Keep going, Lora! 💪</p>
+            <p className="text-sm text-gray-500">Timer will auto-advance</p>
+          </div>
+        )}
 
         {/* Exercise Instructions */}
         <div className="bg-lavender-50 rounded-xl p-4 w-full">

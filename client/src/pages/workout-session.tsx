@@ -48,32 +48,17 @@ export default function WorkoutSession() {
       queryClient.invalidateQueries({ queryKey: ["/api/sessions"] });
       queryClient.invalidateQueries({ queryKey: ["/api/sessions/today"] });
       toast({
-        title: "Session completed! 🎉",
-        description: "Great job! Keep up the excellent work.",
+        title: "Amazing work, Lora! 🎉",
+        description: "You and baby girl did great today!",
       });
     },
   });
 
-  // Generate exercise list based on duration
+  // Generate exercise list - include ALL exercises for every session
   useEffect(() => {
     if (allExercises.length > 0) {
-      const targetTime = duration * 60; // Convert to seconds
-      let selectedExercises: Exercise[] = [];
-      let totalTime = 0;
-      
-      // Shuffle exercises for variety
-      const shuffled = [...allExercises].sort(() => Math.random() - 0.5);
-      
-      for (const exercise of shuffled) {
-        if (totalTime + exercise.duration <= targetTime) {
-          selectedExercises.push(exercise);
-          totalTime += exercise.duration;
-        }
-        
-        if (totalTime >= targetTime * 0.8) break; // Fill at least 80% of the time
-      }
-      
-      setSessionExercises(selectedExercises);
+      // Always include all 7 exercises in the same order
+      setSessionExercises([...allExercises]);
     }
   }, [allExercises, duration]);
 
@@ -118,8 +103,8 @@ export default function WorkoutSession() {
             <ArrowLeft className="w-4 h-4" />
           </button>
           <div className="text-center">
-            <h1 className="text-2xl font-semibold mb-2">{duration} Minute Session</h1>
-            <p className="text-sage-50 text-sm">Ready to start your prenatal workout?</p>
+            <h1 className="text-2xl font-semibold mb-2">Hi Lora! 💕</h1>
+            <p className="text-sage-50 text-sm">Ready for your {duration}-minute session? You and baby girl are going to do great!</p>
           </div>
         </header>
 
@@ -142,7 +127,7 @@ export default function WorkoutSession() {
                 {sessionExercises.map((exercise, index) => (
                   <div key={exercise.id} className="flex items-center justify-between bg-gray-50 rounded-lg p-3">
                     <span className="text-sm font-medium">{exercise.name}</span>
-                    <span className="text-xs text-gray-500">{Math.round(exercise.duration / 60)}min</span>
+                    <span className="text-xs text-gray-500">{duration === 5 ? '43s' : '86s'}</span>
                   </div>
                 ))}
               </div>
@@ -160,7 +145,7 @@ export default function WorkoutSession() {
             
             <div className="bg-peach-50 border border-peach-200 rounded-lg p-4">
               <p className="text-sm text-gray-600 text-center">
-                Remember to listen to your body and take breaks whenever needed. Stay hydrated!
+                Lora, remember to listen to your body and baby girl. Stay hydrated and take breaks whenever needed! 💕
               </p>
             </div>
           </div>
@@ -208,6 +193,7 @@ export default function WorkoutSession() {
           exercise={currentExercise}
           onComplete={handleExerciseComplete}
           onSkip={handleSkipExercise}
+          sessionDuration={duration}
         />
       </main>
     </div>
