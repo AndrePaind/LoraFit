@@ -67,11 +67,16 @@ export default function WorkoutSession() {
   };
 
   const handleExerciseComplete = useCallback(() => {
+    console.log('🎯 WORKOUT SESSION: Exercise complete called');
     setCurrentExerciseIndex(prevIndex => {
+      console.log('🎯 Current index:', prevIndex, 'Total exercises:', sessionExercises.length);
       if (prevIndex < sessionExercises.length - 1) {
-        return prevIndex + 1;
+        const nextIndex = prevIndex + 1;
+        console.log('🎯 ADVANCING to index:', nextIndex);
+        return nextIndex;
       } else {
         // Session completed
+        console.log('🎯 SESSION COMPLETE!');
         completeSessionMutation.mutate(sessionExercises.length);
         // Navigate back to home
         setTimeout(() => {

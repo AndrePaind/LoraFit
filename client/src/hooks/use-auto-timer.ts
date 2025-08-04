@@ -2,11 +2,12 @@ import { useState, useEffect, useRef } from 'react';
 
 interface UseAutoTimerProps {
   duration: number;
+  exerciseId?: string;
   onComplete: () => void;
   onCountdown?: (seconds: number) => void;
 }
 
-export function useAutoTimer({ duration, onComplete, onCountdown }: UseAutoTimerProps) {
+export function useAutoTimer({ duration, exerciseId, onComplete, onCountdown }: UseAutoTimerProps) {
   const [timeRemaining, setTimeRemaining] = useState(duration);
   const [isRunning, setIsRunning] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
@@ -100,11 +101,13 @@ export function useAutoTimer({ duration, onComplete, onCountdown }: UseAutoTimer
           }
           
           if (newTime <= 0) {
+            console.log('⏰ TIMER: Timer reached 0, stopping and calling onComplete in 1 second');
             setIsRunning(false);
             setIsCompleted(true);
             // Play completion sound
             setTimeout(() => playBeep(1200, 300), 100);
             setTimeout(() => {
+              console.log('⏰ TIMER: Calling onComplete now');
               onCompleteRef.current?.();
             }, 1000); // Auto-advance after 1 second
             return 0;
@@ -127,13 +130,14 @@ export function useAutoTimer({ duration, onComplete, onCountdown }: UseAutoTimer
   }, [isRunning, timeRemaining]);
 
   useEffect(() => {
+    console.log('🔄 TIMER RESET: Duration:', duration, 'Exercise ID:', exerciseId);
     setTimeRemaining(duration);
     setIsCompleted(false);
     setIsRunning(false);
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
-  }, [duration]);
+  }, [duration, exerciseId]);
 
   return {
     timeRemaining,
