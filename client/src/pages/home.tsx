@@ -33,9 +33,9 @@ export default function Home() {
           
           {user && (
             <div className="mt-4 bg-white bg-opacity-15 rounded-lg p-3">
-              <div className="text-xs text-sage-50 mb-1">Your Journey</div>
+              <div className="text-xs text-white mb-1">Your Journey</div>
               <div className="flex items-center">
-                <span className="text-lg font-medium">{user.pregnancyWeek} weeks</span>
+                <span className="text-lg font-medium text-white">{user.pregnancyWeek} weeks</span>
                 <div className="ml-2 flex-1 bg-white bg-opacity-20 h-2 rounded-full">
                   <div 
                     className="bg-white h-2 rounded-full transition-all duration-300" 
