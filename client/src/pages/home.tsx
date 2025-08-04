@@ -115,21 +115,13 @@ export default function Home() {
         <section className="mb-8">
           <h3 className="text-lg font-semibold text-gray-800 mb-4">Quick Actions</h3>
           
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4">
             <button className="bg-white border border-gray-200 rounded-xl p-4 text-center shadow-sm hover:shadow-md transition-shadow duration-200">
               <div className="w-12 h-12 bg-lavender-100 rounded-full flex items-center justify-center mx-auto mb-3">
                 <TrendingUp className="w-6 h-6 text-lavender-500" />
               </div>
               <div className="text-sm font-medium text-gray-800">View Progress</div>
               <div className="text-xs text-gray-500 mt-1">Track your journey</div>
-            </button>
-            
-            <button className="bg-white border border-gray-200 rounded-xl p-4 text-center shadow-sm hover:shadow-md transition-shadow duration-200">
-              <div className="w-12 h-12 bg-sage-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <UserCheck className="w-6 h-6 text-sage-500" />
-              </div>
-              <div className="text-sm font-medium text-gray-800">Contact Doctor</div>
-              <div className="text-xs text-gray-500 mt-1">Quick consultation</div>
             </button>
           </div>
         </section>
