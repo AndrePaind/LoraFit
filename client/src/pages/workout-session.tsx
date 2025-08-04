@@ -1,6 +1,6 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useRoute } from "wouter";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { type Exercise } from "@shared/schema";
 import ExerciseTimer from "@/components/exercise-timer";
 import { Button } from "@/components/ui/button";
@@ -66,20 +66,25 @@ export default function WorkoutSession() {
     createSessionMutation.mutate();
   };
 
-  const handleExerciseComplete = () => {
-    if (currentExerciseIndex < sessionExercises.length - 1) {
-      setCurrentExerciseIndex(currentExerciseIndex + 1);
-    } else {
-      // Session completed
-      completeSessionMutation.mutate(sessionExercises.length);
-      // Navigate back to home
-      window.location.href = "/";
-    }
-  };
+  const handleExerciseComplete = useCallback(() => {
+    setCurrentExerciseIndex(prevIndex => {
+      if (prevIndex < sessionExercises.length - 1) {
+        return prevIndex + 1;
+      } else {
+        // Session completed
+        completeSessionMutation.mutate(sessionExercises.length);
+        // Navigate back to home
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 500);
+        return prevIndex;
+      }
+    });
+  }, [sessionExercises.length, completeSessionMutation]);
 
-  const handleSkipExercise = () => {
+  const handleSkipExercise = useCallback(() => {
     handleExerciseComplete();
-  };
+  }, [handleExerciseComplete]);
 
   const handleExitSession = () => {
     if (sessionStarted && sessionId) {

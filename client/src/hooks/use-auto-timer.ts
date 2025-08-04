@@ -11,6 +11,14 @@ export function useAutoTimer({ duration, onComplete, onCountdown }: UseAutoTimer
   const [isRunning, setIsRunning] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const onCompleteRef = useRef(onComplete);
+  const onCountdownRef = useRef(onCountdown);
+
+  // Update refs when callbacks change
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+    onCountdownRef.current = onCountdown;
+  }, [onComplete, onCountdown]);
   const audioContextRef = useRef<AudioContext | null>(null);
 
   // Initialize audio context
@@ -88,7 +96,7 @@ export function useAutoTimer({ duration, onComplete, onCountdown }: UseAutoTimer
           // Countdown sound notifications (3-2-1)
           if (newTime === 3 || newTime === 2 || newTime === 1) {
             playBeep(newTime === 1 ? 1000 : 800, 150);
-            onCountdown?.(newTime);
+            onCountdownRef.current?.(newTime);
           }
           
           if (newTime <= 0) {
@@ -97,7 +105,7 @@ export function useAutoTimer({ duration, onComplete, onCountdown }: UseAutoTimer
             // Play completion sound
             setTimeout(() => playBeep(1200, 300), 100);
             setTimeout(() => {
-              onComplete?.();
+              onCompleteRef.current?.();
             }, 1000); // Auto-advance after 1 second
             return 0;
           }
@@ -116,7 +124,7 @@ export function useAutoTimer({ duration, onComplete, onCountdown }: UseAutoTimer
         clearInterval(intervalRef.current);
       }
     };
-  }, [isRunning, timeRemaining, onComplete, onCountdown]);
+  }, [isRunning, timeRemaining]);
 
   useEffect(() => {
     setTimeRemaining(duration);
