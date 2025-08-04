@@ -3,6 +3,7 @@ import { Play, Pause, SkipForward } from "lucide-react";
 import { type Exercise } from "@shared/schema";
 import { Button } from "@/components/ui/button";
 import { useTimer } from "@/hooks/use-timer";
+import { ExerciseIllustration } from "./exercise-illustrations";
 
 interface ExerciseTimerProps {
   exercise: Exercise;
@@ -60,12 +61,17 @@ export default function ExerciseTimer({ exercise, onComplete, onSkip }: Exercise
   return (
     <div className="p-6 h-full flex flex-col">
       {/* Exercise Info */}
-      <div className="text-center mb-8">
+      <div className="text-center mb-6">
         <h2 className="text-2xl font-semibold text-gray-800 mb-2">{exercise.name}</h2>
         <p className="text-gray-600 text-sm mb-4">{exercise.description}</p>
         <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${getDifficultyColor(exercise.difficulty)} bg-gray-100`}>
           {exercise.difficulty.charAt(0).toUpperCase() + exercise.difficulty.slice(1)}
         </span>
+      </div>
+
+      {/* Exercise Illustration */}
+      <div className="mb-6">
+        <ExerciseIllustration exerciseId={exercise.id} className="h-24 w-full" />
       </div>
 
       {/* Timer */}

@@ -2,6 +2,7 @@ import { Clock, BarChart3 } from "lucide-react";
 import { type Exercise } from "@shared/schema";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { ExerciseIllustration } from "./exercise-illustrations";
 
 interface ExerciseCardProps {
   exercise: Exercise;
@@ -44,6 +45,11 @@ export default function ExerciseCard({ exercise }: ExerciseCardProps) {
   return (
     <Card className="shadow-sm hover:shadow-md transition-shadow duration-200">
       <CardContent className="p-4">
+        {/* Exercise Illustration */}
+        <div className="mb-4">
+          <ExerciseIllustration exerciseId={exercise.id} className="h-20 w-full" />
+        </div>
+        
         <div className="flex items-start justify-between mb-3">
           <h3 className="font-semibold text-gray-800 text-lg leading-tight pr-2">
             {exercise.name}
