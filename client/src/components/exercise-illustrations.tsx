@@ -1,163 +1,232 @@
-// SVG illustrations for prenatal exercises
+// SVG illustrations for prenatal exercises based on provided images
+export const GroundingYourselfIllustration = () => (
+  <svg viewBox="0 0 200 120" className="w-full h-24">
+    <defs>
+      <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#8b7dd6" />
+        <stop offset="100%" stopColor="#a294e6" />
+      </linearGradient>
+      <linearGradient id="skinGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#d4a574" />
+        <stop offset="100%" stopColor="#c89860" />
+      </linearGradient>
+    </defs>
+    {/* Background gradient */}
+    <rect width="200" height="120" fill="url(#backgroundGradient)" />
+    <defs>
+      <linearGradient id="backgroundGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#f5f3ff" />
+        <stop offset="100%" stopColor="#e0e7ff" />
+      </linearGradient>
+    </defs>
+    {/* Seated cross-legged figure */}
+    <ellipse cx="100" cy="80" rx="30" ry="15" fill="url(#bodyGradient)" />
+    {/* Torso */}
+    <ellipse cx="100" cy="65" rx="20" ry="25" fill="url(#bodyGradient)" />
+    {/* Head */}
+    <circle cx="100" cy="35" r="15" fill="url(#skinGradient)" />
+    {/* Hair bun */}
+    <circle cx="100" cy="25" r="8" fill="#2d1810" />
+    {/* Arms positioned on knees */}
+    <ellipse cx="80" cy="70" rx="8" ry="20" fill="url(#skinGradient)" transform="rotate(-30 80 70)" />
+    <ellipse cx="120" cy="70" rx="8" ry="20" fill="url(#skinGradient)" transform="rotate(30 120 70)" />
+    {/* Hands resting on knees */}
+    <circle cx="75" cy="85" r="6" fill="url(#skinGradient)" />
+    <circle cx="125" cy="85" r="6" fill="url(#skinGradient)" />
+    {/* Peaceful aura lines */}
+    <circle cx="100" cy="60" r="50" fill="none" stroke="#c7d2fe" strokeWidth="1" opacity="0.4" />
+    <circle cx="100" cy="60" r="35" fill="none" stroke="#c7d2fe" strokeWidth="1" opacity="0.6" />
+  </svg>
+);
+
 export const CatCowIllustration = () => (
   <svg viewBox="0 0 200 120" className="w-full h-24">
     <defs>
-      <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="#f3e8e8" />
-        <stop offset="100%" stopColor="#e8d5d5" />
+      <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#8b7dd6" />
+        <stop offset="100%" stopColor="#a294e6" />
+      </linearGradient>
+      <linearGradient id="skinGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#d4a574" />
+        <stop offset="100%" stopColor="#c89860" />
       </linearGradient>
     </defs>
-    {/* Ground line */}
-    <line x1="20" y1="100" x2="180" y2="100" stroke="#d1d5db" strokeWidth="2" />
-    {/* Body in cat position */}
-    <ellipse cx="100" cy="70" rx="40" ry="15" fill="url(#bodyGradient)" stroke="#b3b3b3" strokeWidth="1" />
-    {/* Head */}
-    <circle cx="70" cy="65" r="12" fill="url(#bodyGradient)" stroke="#b3b3b3" strokeWidth="1" />
-    {/* Arms */}
-    <line x1="80" y1="75" x2="80" y2="100" stroke="#d4a574" strokeWidth="4" strokeLinecap="round" />
-    <line x1="120" y1="75" x2="120" y2="100" stroke="#d4a574" strokeWidth="4" strokeLinecap="round" />
-    {/* Legs */}
-    <line x1="85" y1="80" x2="85" y2="100" stroke="#d4a574" strokeWidth="4" strokeLinecap="round" />
-    <line x1="115" y1="80" x2="115" y2="100" stroke="#d4a574" strokeWidth="4" strokeLinecap="round" />
-    {/* Hair */}
-    <path d="M 65 55 Q 70 50 75 55" fill="#8b6f47" />
-    {/* Movement arrow */}
-    <path d="M 100 45 Q 110 35 120 45" stroke="#8bb4a1" strokeWidth="2" fill="none" markerEnd="url(#arrowhead)" />
-    <defs>
-      <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-        <polygon points="0 0, 10 3.5, 0 7" fill="#8bb4a1" />
-      </marker>
-    </defs>
+    {/* Two positions - Cat and Cow */}
+    {/* Cat position (top) */}
+    <g transform="translate(0, -10)">
+      <ellipse cx="100" cy="50" rx="35" ry="12" fill="url(#bodyGradient)" />
+      <circle cx="70" cy="45" r="10" fill="url(#skinGradient)" />
+      <circle cx="70" cy="38" r="6" fill="#2d1810" />
+      {/* Arms and legs */}
+      <line x1="80" y1="55" x2="80" y2="75" stroke="url(#skinGradient)" strokeWidth="6" strokeLinecap="round" />
+      <line x1="120" y1="55" x2="120" y2="75" stroke="url(#skinGradient)" strokeWidth="6" strokeLinecap="round" />
+      <line x1="85" y1="58" x2="85" y2="78" stroke="url(#skinGradient)" strokeWidth="6" strokeLinecap="round" />
+      <line x1="115" y1="58" x2="115" y2="78" stroke="url(#skinGradient)" strokeWidth="6" strokeLinecap="round" />
+    </g>
+    {/* Cow position (bottom) */}
+    <g transform="translate(0, 30)">
+      <ellipse cx="100" cy="50" rx="35" ry="12" fill="url(#bodyGradient)" transform="rotate(-5 100 50)" />
+      <circle cx="70" cy="42" r="10" fill="url(#skinGradient)" />
+      <circle cx="70" cy="35" r="6" fill="#2d1810" />
+      {/* Arms and legs */}
+      <line x1="80" y1="55" x2="80" y2="75" stroke="url(#skinGradient)" strokeWidth="6" strokeLinecap="round" />
+      <line x1="120" y1="55" x2="120" y2="75" stroke="url(#skinGradient)" strokeWidth="6" strokeLinecap="round" />
+      <line x1="85" y1="58" x2="85" y2="78" stroke="url(#skinGradient)" strokeWidth="6" strokeLinecap="round" />
+      <line x1="115" y1="58" x2="115" y2="78" stroke="url(#skinGradient)" strokeWidth="6" strokeLinecap="round" />
+    </g>
   </svg>
 );
 
-export const BreathingIllustration = () => (
+export const HipStretchIllustration = () => (
   <svg viewBox="0 0 200 120" className="w-full h-24">
     <defs>
-      <radialGradient id="breathGradient" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stopColor="#e0e7ff" />
-        <stop offset="100%" stopColor="#c7d2fe" />
-      </radialGradient>
+      <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#8b7dd6" />
+        <stop offset="100%" stopColor="#a294e6" />
+      </linearGradient>
+      <linearGradient id="skinGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#d4a574" />
+        <stop offset="100%" stopColor="#c89860" />
+      </linearGradient>
     </defs>
-    {/* Seated figure */}
-    <rect x="85" y="70" width="30" height="40" rx="15" fill="url(#bodyGradient)" />
+    {/* Figure lying on side doing hip stretch */}
+    <ellipse cx="100" cy="70" rx="30" ry="15" fill="url(#bodyGradient)" />
     {/* Head */}
-    <circle cx="100" cy="50" r="15" fill="url(#bodyGradient)" stroke="#b3b3b3" strokeWidth="1" />
-    {/* Hair */}
-    <path d="M 90 40 Q 100 35 110 40" fill="#8b6f47" />
-    {/* Arms in meditation pose */}
-    <ellipse cx="70" cy="80" rx="8" ry="15" fill="#d4a574" transform="rotate(-20 70 80)" />
-    <ellipse cx="130" cy="80" rx="8" ry="15" fill="#d4a574" transform="rotate(20 130 80)" />
-    {/* Breath visualization */}
-    <circle cx="100" cy="75" r="20" fill="url(#breathGradient)" opacity="0.6" />
-    <circle cx="100" cy="75" r="15" fill="url(#breathGradient)" opacity="0.4" />
-    <circle cx="100" cy="75" r="10" fill="url(#breathGradient)" opacity="0.3" />
-    {/* Breath flow lines */}
-    <path d="M 85 60 Q 100 55 115 60" stroke="#8bb4a1" strokeWidth="2" fill="none" opacity="0.7" />
-    <path d="M 87 65 Q 100 62 113 65" stroke="#8bb4a1" strokeWidth="1.5" fill="none" opacity="0.5" />
+    <circle cx="70" cy="65" r="12" fill="url(#skinGradient)" />
+    <circle cx="70" cy="58" r="6" fill="#2d1810" />
+    {/* Bent knee being pulled to chest */}
+    <ellipse cx="115" cy="55" rx="12" ry="20" fill="url(#bodyGradient)" transform="rotate(-45 115 55)" />
+    {/* Extended leg */}
+    <ellipse cx="120" cy="80" rx="8" ry="25" fill="url(#bodyGradient)" />
+    {/* Arms */}
+    <ellipse cx="90" cy="60" rx="6" ry="15" fill="url(#skinGradient)" transform="rotate(-20 90 60)" />
+    <ellipse cx="105" cy="55" rx="6" ry="12" fill="url(#skinGradient)" transform="rotate(30 105 55)" />
   </svg>
 );
 
-export const WallPushUpIllustration = () => (
+export const LungesIllustration = () => (
   <svg viewBox="0 0 200 120" className="w-full h-24">
-    {/* Wall */}
-    <rect x="20" y="10" width="8" height="100" fill="#e5e7eb" stroke="#d1d5db" strokeWidth="1" />
-    {/* Ground */}
-    <line x1="20" y1="110" x2="180" y2="110" stroke="#d1d5db" strokeWidth="2" />
-    {/* Figure doing wall push-up */}
-    <ellipse cx="110" cy="60" rx="25" ry="12" fill="url(#bodyGradient)" />
-    {/* Head */}
-    <circle cx="135" cy="55" r="10" fill="url(#bodyGradient)" stroke="#b3b3b3" strokeWidth="1" />
-    {/* Arms */}
-    <line x1="85" y1="55" x2="30" y2="45" stroke="#d4a574" strokeWidth="4" strokeLinecap="round" />
-    <line x1="85" y1="65" x2="30" y2="55" stroke="#d4a574" strokeWidth="4" strokeLinecap="round" />
-    {/* Legs */}
-    <line x1="130" y1="70" x2="155" y2="110" stroke="#d4a574" strokeWidth="4" strokeLinecap="round" />
-    <line x1="125" y1="70" x2="145" y2="110" stroke="#d4a574" strokeWidth="4" strokeLinecap="round" />
-    {/* Hair */}
-    <path d="M 130 48 Q 135 43 140 48" fill="#8b6f47" />
-    {/* Movement arrow */}
-    <path d="M 50 40 L 40 40" stroke="#f97316" strokeWidth="2" markerEnd="url(#arrowheadOrange)" />
     <defs>
-      <marker id="arrowheadOrange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-        <polygon points="0 0, 10 3.5, 0 7" fill="#f97316" />
-      </marker>
+      <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#8b7dd6" />
+        <stop offset="100%" stopColor="#a294e6" />
+      </linearGradient>
+      <linearGradient id="skinGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#d4a574" />
+        <stop offset="100%" stopColor="#c89860" />
+      </linearGradient>
     </defs>
+    {/* Two figures showing lunge progression */}
+    {/* Standing position */}
+    <g transform="translate(-30, 0)">
+      <ellipse cx="80" cy="65" rx="15" ry="25" fill="url(#bodyGradient)" />
+      <circle cx="80" cy="30" r="12" fill="url(#skinGradient)" />
+      <circle cx="80" cy="23" r="6" fill="#2d1810" />
+      <ellipse cx="65" cy="55" rx="6" ry="15" fill="url(#skinGradient)" transform="rotate(-10 65 55)" />
+      <ellipse cx="95" cy="55" rx="6" ry="15" fill="url(#skinGradient)" transform="rotate(10 95 55)" />
+      {/* Legs */}
+      <ellipse cx="75" cy="90" rx="8" ry="20" fill="url(#bodyGradient)" />
+      <ellipse cx="85" cy="90" rx="8" ry="20" fill="url(#bodyGradient)" />
+    </g>
+    {/* Lunge position */}
+    <g transform="translate(30, 0)">
+      <ellipse cx="120" cy="65" rx="15" ry="25" fill="url(#bodyGradient)" />
+      <circle cx="120" cy="30" r="12" fill="url(#skinGradient)" />
+      <circle cx="120" cy="23" r="6" fill="#2d1810" />
+      <ellipse cx="105" cy="55" rx="6" ry="15" fill="url(#skinGradient)" transform="rotate(-10 105 55)" />
+      <ellipse cx="135" cy="55" rx="6" ry="15" fill="url(#skinGradient)" transform="rotate(10 135 55)" />
+      {/* Front leg bent */}
+      <ellipse cx="110" cy="85" rx="8" ry="18" fill="url(#bodyGradient)" transform="rotate(-20 110 85)" />
+      {/* Back leg extended */}
+      <ellipse cx="140" cy="95" rx="8" ry="25" fill="url(#bodyGradient)" transform="rotate(45 140 95)" />
+    </g>
   </svg>
 );
 
-export const PelvicTiltIllustration = () => (
+export const SquatsIllustration = () => (
   <svg viewBox="0 0 200 120" className="w-full h-24">
-    {/* Mat/ground */}
-    <rect x="40" y="95" width="120" height="15" rx="7" fill="#e0e7ff" opacity="0.7" />
-    {/* Figure lying down */}
-    <ellipse cx="100" cy="75" rx="35" ry="15" fill="url(#bodyGradient)" />
-    {/* Head */}
-    <circle cx="65" cy="70" r="12" fill="url(#bodyGradient)" stroke="#b3b3b3" strokeWidth="1" />
-    {/* Bent knees */}
-    <ellipse cx="85" cy="60" rx="8" ry="18" fill="#d4a574" transform="rotate(-15 85 60)" />
-    <ellipse cx="115" cy="60" rx="8" ry="18" fill="#d4a574" transform="rotate(15 115 60)" />
-    {/* Arms */}
-    <ellipse cx="75" cy="85" rx="15" ry="6" fill="#d4a574" />
-    <ellipse cx="125" cy="85" rx="15" ry="6" fill="#d4a574" />
-    {/* Hair */}
-    <path d="M 60 62 Q 65 57 70 62" fill="#8b6f47" />
-    {/* Pelvic movement arrow */}
-    <path d="M 100 90 Q 105 95 110 90" stroke="#8bb4a1" strokeWidth="2" fill="none" markerEnd="url(#arrowhead)" />
-  </svg>
-);
-
-export const AnklePumpsIllustration = () => (
-  <svg viewBox="0 0 200 120" className="w-full h-24">
-    {/* Chair */}
-    <rect x="40" y="70" width="60" height="40" fill="#e5e7eb" stroke="#d1d5db" strokeWidth="1" />
-    <rect x="35" y="65" width="70" height="8" fill="#e5e7eb" stroke="#d1d5db" strokeWidth="1" />
-    {/* Figure sitting */}
-    <ellipse cx="70" cy="60" rx="20" ry="10" fill="url(#bodyGradient)" />
-    {/* Head */}
-    <circle cx="70" cy="40" r="12" fill="url(#bodyGradient)" stroke="#b3b3b3" strokeWidth="1" />
-    {/* Arms */}
-    <ellipse cx="50" cy="65" rx="6" ry="12" fill="#d4a574" />
-    <ellipse cx="90" cy="65" rx="6" ry="12" fill="#d4a574" />
-    {/* Legs */}
-    <rect x="60" y="70" width="6" height="25" fill="#d4a574" />
-    <rect x="74" y="70" width="6" height="25" fill="#d4a574" />
-    {/* Feet with movement */}
-    <ellipse cx="65" cy="100" rx="8" ry="4" fill="#8b6f47" />
-    <ellipse cx="79" cy="100" rx="8" ry="4" fill="#8b6f47" />
-    {/* Hair */}
-    <path d="M 65 32 Q 70 27 75 32" fill="#8b6f47" />
-    {/* Movement arrows for ankle pumps */}
-    <path d="M 55 105 L 50 105" stroke="#8bb4a1" strokeWidth="2" markerEnd="url(#arrowhead)" />
-    <path d="M 89 105 L 94 105" stroke="#8bb4a1" strokeWidth="2" markerEnd="url(#arrowhead)" />
-    <path d="M 65 108 L 65 113" stroke="#8bb4a1" strokeWidth="2" markerEnd="url(#arrowhead)" />
-    <path d="M 79 108 L 79 113" stroke="#8bb4a1" strokeWidth="2" markerEnd="url(#arrowhead)" />
-  </svg>
-);
-
-export const SpinalTwistIllustration = () => (
-  <svg viewBox="0 0 200 120" className="w-full h-24">
-    {/* Mat */}
-    <circle cx="100" cy="90" r="60" fill="#e0e7ff" opacity="0.3" />
-    {/* Figure sitting cross-legged */}
-    <ellipse cx="100" cy="75" rx="25" ry="12" fill="url(#bodyGradient)" />
-    {/* Head turned */}
-    <circle cx="110" cy="50" r="12" fill="url(#bodyGradient)" stroke="#b3b3b3" strokeWidth="1" />
-    {/* Crossed legs */}
-    <ellipse cx="85" cy="85" rx="12" ry="6" fill="#d4a574" transform="rotate(-20 85 85)" />
-    <ellipse cx="115" cy="85" rx="12" ry="6" fill="#d4a574" transform="rotate(20 115 85)" />
-    {/* Arms - one supporting, one twisting */}
-    <ellipse cx="125" cy="70" rx="6" ry="15" fill="#d4a574" transform="rotate(30 125 70)" />
-    <ellipse cx="85" cy="65" rx="6" ry="12" fill="#d4a574" transform="rotate(-45 85 65)" />
-    {/* Hair */}
-    <path d="M 105 42 Q 110 37 115 42" fill="#8b6f47" />
-    {/* Twist arrow */}
-    <path d="M 90 55 Q 100 45 110 55" stroke="#c084fc" strokeWidth="2" fill="none" markerEnd="url(#arrowheadPurple)" />
     <defs>
-      <marker id="arrowheadPurple" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-        <polygon points="0 0, 10 3.5, 0 7" fill="#c084fc" />
-      </marker>
+      <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#8b7dd6" />
+        <stop offset="100%" stopColor="#a294e6" />
+      </linearGradient>
+      <linearGradient id="skinGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#d4a574" />
+        <stop offset="100%" stopColor="#c89860" />
+      </linearGradient>
     </defs>
+    {/* Figure in squat position */}
+    <ellipse cx="100" cy="75" rx="20" ry="30" fill="url(#bodyGradient)" />
+    {/* Head */}
+    <circle cx="100" cy="35" r="12" fill="url(#skinGradient)" />
+    <circle cx="100" cy="28" r="6" fill="#2d1810" />
+    {/* Arms positioned together at chest */}
+    <ellipse cx="85" cy="55" rx="6" ry="12" fill="url(#skinGradient)" transform="rotate(-20 85 55)" />
+    <ellipse cx="115" cy="55" rx="6" ry="12" fill="url(#skinGradient)" transform="rotate(20 115 55)" />
+    {/* Hands together */}
+    <ellipse cx="100" cy="50" rx="8" ry="6" fill="url(#skinGradient)" />
+    {/* Bent legs in squat */}
+    <ellipse cx="85" cy="95" rx="10" ry="20" fill="url(#bodyGradient)" transform="rotate(-30 85 95)" />
+    <ellipse cx="115" cy="95" rx="10" ry="20" fill="url(#bodyGradient)" transform="rotate(30 115 95)" />
+    {/* Feet */}
+    <ellipse cx="75" cy="110" rx="8" ry="4" fill="#8b6f47" />
+    <ellipse cx="125" cy="110" rx="8" ry="4" fill="#8b6f47" />
+  </svg>
+);
+
+export const WindmillIllustration = () => (
+  <svg viewBox="0 0 200 120" className="w-full h-24">
+    <defs>
+      <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#8b7dd6" />
+        <stop offset="100%" stopColor="#a294e6" />
+      </linearGradient>
+      <linearGradient id="skinGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#d4a574" />
+        <stop offset="100%" stopColor="#c89860" />
+      </linearGradient>
+    </defs>
+    {/* Figure in side bend/windmill pose */}
+    <ellipse cx="100" cy="65" rx="18" ry="30" fill="url(#bodyGradient)" transform="rotate(15 100 65)" />
+    {/* Head */}
+    <circle cx="95" cy="35" r="12" fill="url(#skinGradient)" />
+    <circle cx="95" cy="28" r="6" fill="#2d1810" />
+    {/* One arm reaching up and over */}
+    <ellipse cx="80" cy="45" rx="6" ry="20" fill="url(#skinGradient)" transform="rotate(-45 80 45)" />
+    {/* Other arm down */}
+    <ellipse cx="120" cy="70" rx="6" ry="15" fill="url(#skinGradient)" transform="rotate(45 120 70)" />
+    {/* Legs spread wide */}
+    <ellipse cx="85" cy="95" rx="8" ry="25" fill="url(#bodyGradient)" />
+    <ellipse cx="115" cy="95" rx="8" ry="25" fill="url(#bodyGradient)" />
+    {/* Feet */}
+    <ellipse cx="85" cy="115" rx="8" ry="4" fill="#8b6f47" />
+    <ellipse cx="115" cy="115" rx="8" ry="4" fill="#8b6f47" />
+  </svg>
+);
+
+export const ChildPoseIllustration = () => (
+  <svg viewBox="0 0 200 120" className="w-full h-24">
+    <defs>
+      <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#8b7dd6" />
+        <stop offset="100%" stopColor="#a294e6" />
+      </linearGradient>
+      <linearGradient id="skinGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#d4a574" />
+        <stop offset="100%" stopColor="#c89860" />
+      </linearGradient>
+    </defs>
+    {/* Figure in child's pose */}
+    <ellipse cx="120" cy="75" rx="25" ry="18" fill="url(#bodyGradient)" />
+    {/* Head down */}
+    <circle cx="90" cy="70" r="10" fill="url(#skinGradient)" />
+    <circle cx="90" cy="65" r="5" fill="#2d1810" />
+    {/* Arms extended forward */}
+    <ellipse cx="70" cy="75" rx="15" ry="6" fill="url(#skinGradient)" />
+    <ellipse cx="70" cy="85" rx="15" ry="6" fill="url(#skinGradient)" />
+    {/* Folded legs underneath */}
+    <ellipse cx="140" cy="85" rx="12" ry="8" fill="url(#bodyGradient)" />
+    <ellipse cx="140" cy="95" rx="12" ry="8" fill="url(#bodyGradient)" />
   </svg>
 );
 
@@ -168,12 +237,13 @@ interface ExerciseIllustrationProps {
 
 export const ExerciseIllustration = ({ exerciseId, className = "" }: ExerciseIllustrationProps) => {
   const illustrations: Record<string, () => JSX.Element> = {
-    "1": CatCowIllustration,
-    "2": BreathingIllustration,
-    "3": WallPushUpIllustration,
-    "4": PelvicTiltIllustration,
-    "5": SpinalTwistIllustration,
-    "6": AnklePumpsIllustration,
+    "1": GroundingYourselfIllustration,
+    "2": CatCowIllustration,
+    "3": HipStretchIllustration,
+    "4": LungesIllustration,
+    "5": SquatsIllustration,
+    "6": WindmillIllustration,
+    "7": ChildPoseIllustration,
   };
 
   const IllustrationComponent = illustrations[exerciseId];
