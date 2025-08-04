@@ -17,12 +17,10 @@ export default function ExerciseTimer({ exercise, onComplete, onSkip, sessionDur
   const [countdownNumber, setCountdownNumber] = useState<number | null>(null);
   
   // Calculate exercise duration based on session type
-  const exerciseDuration = 5; // Temporarily 5 seconds for testing
-  // const exerciseDuration = sessionDuration === 5 ? 43 : 86; // 5 min = 43s each, 10 min = 86s each
+  const exerciseDuration = sessionDuration === 5 ? 43 : 86; // 5 min = 43s each, 10 min = 86s each
 
   // Create a callback that handles completion
   const handleTimerComplete = () => {
-    console.log('🔥 EXERCISE COMPLETE:', exercise.name, 'calling onComplete');
     onComplete();
   };
   
@@ -47,15 +45,13 @@ export default function ExerciseTimer({ exercise, onComplete, onSkip, sessionDur
 
   // Auto-start the timer when exercise changes
   useEffect(() => {
-    console.log('🚀 AUTO-START: Exercise changed to:', exercise.name, 'ID:', exercise.id);
     setHasStarted(true);
     setCountdownNumber(null);
     
     // Start the timer immediately for new exercise
     const timer = setTimeout(() => {
-      console.log('🚀 AUTO-START: Starting timer for:', exercise.name);
       startTimer();
-    }, 500); // Increased delay to ensure reset completes first
+    }, 500); // Delay to ensure reset completes first
 
     return () => clearTimeout(timer);
   }, [exercise.id]);

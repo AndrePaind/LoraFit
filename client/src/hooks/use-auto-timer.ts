@@ -101,13 +101,11 @@ export function useAutoTimer({ duration, exerciseId, onComplete, onCountdown }: 
           }
           
           if (newTime <= 0) {
-            console.log('⏰ TIMER: Timer reached 0, stopping and calling onComplete in 1 second');
             setIsRunning(false);
             setIsCompleted(true);
             // Play completion sound
             setTimeout(() => playBeep(1200, 300), 100);
             setTimeout(() => {
-              console.log('⏰ TIMER: Calling onComplete now');
               onCompleteRef.current?.();
             }, 1000); // Auto-advance after 1 second
             return 0;
@@ -130,7 +128,6 @@ export function useAutoTimer({ duration, exerciseId, onComplete, onCountdown }: 
   }, [isRunning, timeRemaining]);
 
   useEffect(() => {
-    console.log('🔄 TIMER RESET: Duration:', duration, 'Exercise ID:', exerciseId);
     setTimeRemaining(duration);
     setIsCompleted(false);
     setIsRunning(false);
