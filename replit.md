@@ -87,3 +87,13 @@ Preferred communication style: Simple, everyday language.
 - Integrated actual user-provided exercise images instead of SVG illustrations
 - Increased image sizes significantly for better visibility (exercise cards: h-32, workout timer: h-40)
 - Purple-themed exercise illustrations provided by user
+
+### Workout Automation & Streak Tracking (January 2025)
+- Fixed critical auto-advance bug preventing exercises from automatically progressing between sessions
+- Implemented proper timer reset logic using exerciseId parameter to prevent restart loops
+- Added comprehensive streak tracking system with database persistence
+- Created separate UI sections for pregnancy progress and exercise streaks
+- Added visual streak badges: 🌱 for beginners, ⭐ for 3+ day streaks, 🔥 for 7+ day streaks
+- Automatic streak calculation: consecutive days, personal best tracking, smart reset logic
+- Migrated from in-memory storage to PostgreSQL database for reliable data persistence
+- Streak updates automatically after each completed workout session
