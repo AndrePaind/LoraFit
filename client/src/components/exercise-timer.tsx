@@ -19,6 +19,9 @@ export default function ExerciseTimer({ exercise, onComplete, onSkip, sessionDur
   
   // Calculate exercise duration based on session type
   const exerciseDuration = sessionDuration === 5 ? 40 : 80; // 5 min = 40s each, 10 min = 80s each
+  
+  // Debug log to check the values
+  console.log(`Exercise Timer Debug: sessionDuration=${sessionDuration}, exerciseDuration=${exerciseDuration}`);
 
   // Create a callback that handles completion
   const handleTimerComplete = () => {
