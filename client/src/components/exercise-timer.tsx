@@ -15,9 +15,10 @@ interface ExerciseTimerProps {
 export default function ExerciseTimer({ exercise, onComplete, onSkip, sessionDuration }: ExerciseTimerProps) {
   const [hasStarted, setHasStarted] = useState(false);
   const [countdownNumber, setCountdownNumber] = useState<number | null>(null);
+  const [showMidpointMessage, setShowMidpointMessage] = useState(false);
   
   // Calculate exercise duration based on session type
-  const exerciseDuration = sessionDuration === 5 ? 43 : 86; // 5 min = 43s each, 10 min = 86s each
+  const exerciseDuration = sessionDuration === 5 ? 40 : 80; // 5 min = 40s each, 10 min = 80s each
 
   // Create a callback that handles completion
   const handleTimerComplete = () => {
@@ -40,6 +41,11 @@ export default function ExerciseTimer({ exercise, onComplete, onSkip, sessionDur
       setCountdownNumber(seconds);
       // Clear countdown number after showing
       setTimeout(() => setCountdownNumber(null), 800);
+    },
+    onMidpoint: () => {
+      setShowMidpointMessage(true);
+      // Clear midpoint message after showing
+      setTimeout(() => setShowMidpointMessage(false), 2000);
     }
   });
 
@@ -47,6 +53,7 @@ export default function ExerciseTimer({ exercise, onComplete, onSkip, sessionDur
   useEffect(() => {
     setHasStarted(true);
     setCountdownNumber(null);
+    setShowMidpointMessage(false);
     
     // Start the timer immediately for new exercise
     const timer = setTimeout(() => {
@@ -140,6 +147,13 @@ export default function ExerciseTimer({ exercise, onComplete, onSkip, sessionDur
                 <span className="text-6xl font-bold text-rose-500 animate-pulse drop-shadow-sm">
                   {countdownNumber}
                 </span>
+              </div>
+            )}
+            {showMidpointMessage && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="bg-rose-500 text-white px-4 py-2 rounded-lg shadow-lg animate-pulse">
+                  <span className="text-sm font-semibold">Halfway! 💪</span>
+                </div>
               </div>
             )}
           </div>

@@ -5,21 +5,25 @@ interface UseAutoTimerProps {
   exerciseId?: string;
   onComplete: () => void;
   onCountdown?: (seconds: number) => void;
+  onMidpoint?: () => void;
 }
 
-export function useAutoTimer({ duration, exerciseId, onComplete, onCountdown }: UseAutoTimerProps) {
+export function useAutoTimer({ duration, exerciseId, onComplete, onCountdown, onMidpoint }: UseAutoTimerProps) {
   const [timeRemaining, setTimeRemaining] = useState(duration);
   const [isRunning, setIsRunning] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [midpointTriggered, setMidpointTriggered] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const onCompleteRef = useRef(onComplete);
   const onCountdownRef = useRef(onCountdown);
+  const onMidpointRef = useRef(onMidpoint);
 
   // Update refs when callbacks change
   useEffect(() => {
     onCompleteRef.current = onComplete;
     onCountdownRef.current = onCountdown;
-  }, [onComplete, onCountdown]);
+    onMidpointRef.current = onMidpoint;
+  }, [onComplete, onCountdown, onMidpoint]);
   const audioContextRef = useRef<AudioContext | null>(null);
 
   // Initialize audio context
@@ -83,6 +87,7 @@ export function useAutoTimer({ duration, exerciseId, onComplete, onCountdown }: 
     setTimeRemaining(duration);
     setIsRunning(false);
     setIsCompleted(false);
+    setMidpointTriggered(false);
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
@@ -93,6 +98,17 @@ export function useAutoTimer({ duration, exerciseId, onComplete, onCountdown }: 
       intervalRef.current = setInterval(() => {
         setTimeRemaining((prev) => {
           const newTime = prev - 1;
+          const elapsed = duration - newTime;
+          const midpoint = Math.floor(duration / 2);
+          
+          // Midpoint notification - trigger when we reach exactly halfway
+          if (elapsed === midpoint && !midpointTriggered) {
+            setMidpointTriggered(true);
+            // Play a distinctive double-beep for midpoint
+            playBeep(600, 200); // Lower tone
+            setTimeout(() => playBeep(600, 200), 250); // Second beep
+            onMidpointRef.current?.();
+          }
           
           // Countdown sound notifications (3-2-1)
           if (newTime === 3 || newTime === 2 || newTime === 1) {
@@ -131,6 +147,7 @@ export function useAutoTimer({ duration, exerciseId, onComplete, onCountdown }: 
     setTimeRemaining(duration);
     setIsCompleted(false);
     setIsRunning(false);
+    setMidpointTriggered(false);
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }

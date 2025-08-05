@@ -150,7 +150,7 @@ export default function WorkoutSession() {
                 {sessionExercises.map((exercise, index) => (
                   <div key={exercise.id} className="flex items-center justify-between glass-card rounded-lg p-3 smooth-transition">
                     <span className="text-sm font-medium text-contrast">{exercise.name}</span>
-                    <span className="text-xs text-contrast-light">{duration === 5 ? '43s' : '86s'}</span>
+                    <span className="text-xs text-contrast-light">{duration === 5 ? '40s' : '80s'}</span>
                   </div>
                 ))}
               </div>
