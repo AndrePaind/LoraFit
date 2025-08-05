@@ -14,6 +14,16 @@ export default function WorkoutSession() {
   const [, setLocation] = useLocation();
   const duration = parseInt(params?.duration || "10");
   
+  const handleBackToHome = () => {
+    console.log("Navigation function called");
+    try {
+      setLocation("/");
+      console.log("setLocation called successfully");
+    } catch (error) {
+      console.error("Error navigating:", error);
+    }
+  };
+  
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
   const [sessionExercises, setSessionExercises] = useState<Exercise[]>([]);
   const [sessionId, setSessionId] = useState<string | null>(null);
@@ -104,11 +114,10 @@ export default function WorkoutSession() {
         {/* Header */}
         <header className="bg-gradient-to-br from-rose-500 via-rose-400 to-blush-400 px-6 py-8 safe-area-top relative rounded-b-3xl">
           <button 
-            onClick={() => {
-              console.log("Back button clicked, navigating to home");
-              setLocation("/");
-            }}
-            className="absolute top-6 left-6 w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center backdrop-blur-sm smooth-transition hover:bg-opacity-30"
+            type="button"
+            onClick={handleBackToHome}
+            className="absolute top-6 left-6 w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-200 hover:bg-opacity-30 z-10 cursor-pointer"
+            style={{ pointerEvents: 'auto' }}
           >
             <ArrowLeft className="w-4 h-4 text-white" />
           </button>
@@ -154,10 +163,21 @@ export default function WorkoutSession() {
             </div>
           )}
 
-          <div className="glass-card bg-gradient-to-br from-peach-50 to-rose-50 border border-rose-200 rounded-xl p-4">
+          <div className="glass-card bg-gradient-to-br from-peach-50 to-rose-50 border border-rose-200 rounded-xl p-4 mb-4">
             <p className="text-sm text-contrast-light text-center">
               Lora, remember to listen to your body and baby girl. Stay hydrated and take breaks whenever needed! 💕
             </p>
+          </div>
+          
+          {/* Temporary test button */}
+          <div className="text-center">
+            <Button 
+              onClick={handleBackToHome}
+              variant="outline"
+              className="bg-white border-rose-300 text-rose-600 hover:bg-rose-50"
+            >
+              Test: Go to Home
+            </Button>
           </div>
         </main>
       </div>
