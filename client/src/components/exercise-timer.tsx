@@ -19,9 +19,6 @@ export default function ExerciseTimer({ exercise, onComplete, onSkip, sessionDur
   
   // Calculate exercise duration based on session type - reduced from 120s to 80s for 10min sessions
   const exerciseDuration = sessionDuration === 5 ? 40 : 80; // 5 min = 40s each, 10 min = 80s each
-  
-  // Temporary debug log to verify the actual duration being used
-  console.log(`ExerciseTimer: sessionDuration=${sessionDuration}, calculated exerciseDuration=${exerciseDuration} seconds`);
 
   // Create a callback that handles completion
   const handleTimerComplete = () => {
@@ -79,9 +76,7 @@ export default function ExerciseTimer({ exercise, onComplete, onSkip, sessionDur
   };
 
   const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
+    return `${seconds}s`;
   };
 
   const progressPercentage = ((exerciseDuration - timeRemaining) / exerciseDuration) * 100;
