@@ -1,5 +1,5 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { useRoute } from "wouter";
+import { useRoute, useLocation } from "wouter";
 import { useState, useEffect, useCallback } from "react";
 import { type Exercise } from "@shared/schema";
 import ExerciseTimer from "@/components/exercise-timer";
@@ -11,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 export default function WorkoutSession() {
   const { toast } = useToast();
   const [, params] = useRoute("/workout/:duration");
+  const [, setLocation] = useLocation();
   const duration = parseInt(params?.duration || "10");
   
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
@@ -76,7 +77,7 @@ export default function WorkoutSession() {
         completeSessionMutation.mutate(sessionExercises.length);
         // Navigate back to home
         setTimeout(() => {
-          window.location.href = "/";
+          setLocation("/");
         }, 500);
         return prevIndex;
       }
@@ -91,7 +92,7 @@ export default function WorkoutSession() {
     if (sessionStarted && sessionId) {
       completeSessionMutation.mutate(currentExerciseIndex);
     }
-    window.location.href = "/";
+    setLocation("/");
   };
 
   const currentExercise = sessionExercises[currentExerciseIndex];
@@ -103,7 +104,7 @@ export default function WorkoutSession() {
         {/* Header */}
         <header className="bg-gradient-to-br from-rose-500 via-rose-400 to-blush-400 px-6 py-8 safe-area-top relative rounded-b-3xl">
           <button 
-            onClick={() => window.location.href = "/"}
+            onClick={() => setLocation("/")}
             className="absolute top-6 left-6 w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center backdrop-blur-sm smooth-transition hover:bg-opacity-30"
           >
             <ArrowLeft className="w-4 h-4 text-white" />
