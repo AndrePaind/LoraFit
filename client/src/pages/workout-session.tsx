@@ -15,7 +15,7 @@ export default function WorkoutSession() {
   const duration = parseInt(params?.duration || "10");
   
   const handleBackToHome = () => {
-    setLocation("/");
+    setLocation("/home");
   };
   
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
@@ -81,7 +81,7 @@ export default function WorkoutSession() {
         completeSessionMutation.mutate(sessionExercises.length);
         // Navigate back to home
         setTimeout(() => {
-          setLocation("/");
+          setLocation("/home");
         }, 500);
         return prevIndex;
       }
@@ -96,7 +96,7 @@ export default function WorkoutSession() {
     if (sessionStarted && sessionId) {
       completeSessionMutation.mutate(currentExerciseIndex);
     }
-    setLocation("/");
+    setLocation("/home");
   };
 
   const currentExercise = sessionExercises[currentExerciseIndex];

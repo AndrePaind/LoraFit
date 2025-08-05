@@ -1,13 +1,16 @@
 import { Button } from "@/components/ui/button";
+import { useLocation } from "wouter";
 
 export default function SessionSelector() {
+  const [, setLocation] = useLocation();
+  
   const durations = [
     { value: 5, label: "5", subtitle: "Quick Flow" },
     { value: 10, label: "10", subtitle: "Gentle Session" },
   ];
 
   const handleStartSession = (duration: number) => {
-    window.location.href = `/workout/${duration}`;
+    setLocation(`/workout/${duration}`);
   };
 
   return (
