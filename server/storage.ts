@@ -154,6 +154,8 @@ export class MemStorage implements IStorage {
     const user: User = { 
       ...insertUser, 
       id, 
+      pregnancyWeek: insertUser.pregnancyWeek || 12,
+      dailyGoal: insertUser.dailyGoal || 3,
       currentStreak: 0,
       longestStreak: 0,
       lastWorkoutDate: null,
