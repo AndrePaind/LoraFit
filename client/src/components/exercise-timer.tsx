@@ -17,8 +17,11 @@ export default function ExerciseTimer({ exercise, onComplete, onSkip, sessionDur
   const [countdownNumber, setCountdownNumber] = useState<number | null>(null);
   const [showMidpointMessage, setShowMidpointMessage] = useState(false);
   
-  // Calculate exercise duration based on session type
+  // Calculate exercise duration based on session type - reduced from 120s to 80s for 10min sessions
   const exerciseDuration = sessionDuration === 5 ? 40 : 80; // 5 min = 40s each, 10 min = 80s each
+  
+  // Temporary debug log to verify the actual duration being used
+  console.log(`ExerciseTimer: sessionDuration=${sessionDuration}, calculated exerciseDuration=${exerciseDuration} seconds`);
 
   // Create a callback that handles completion
   const handleTimerComplete = () => {
