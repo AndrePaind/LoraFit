@@ -104,7 +104,10 @@ export default function WorkoutSession() {
         {/* Header */}
         <header className="bg-gradient-to-br from-rose-500 via-rose-400 to-blush-400 px-6 py-8 safe-area-top relative rounded-b-3xl">
           <button 
-            onClick={() => setLocation("/")}
+            onClick={() => {
+              console.log("Back button clicked, navigating to home");
+              setLocation("/");
+            }}
             className="absolute top-6 left-6 w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center backdrop-blur-sm smooth-transition hover:bg-opacity-30"
           >
             <ArrowLeft className="w-4 h-4 text-white" />
