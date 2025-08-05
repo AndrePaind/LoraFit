@@ -15,13 +15,7 @@ export default function WorkoutSession() {
   const duration = parseInt(params?.duration || "10");
   
   const handleBackToHome = () => {
-    console.log("Navigation function called");
-    try {
-      setLocation("/");
-      console.log("setLocation called successfully");
-    } catch (error) {
-      console.error("Error navigating:", error);
-    }
+    setLocation("/");
   };
   
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
@@ -163,21 +157,10 @@ export default function WorkoutSession() {
             </div>
           )}
 
-          <div className="glass-card bg-gradient-to-br from-peach-50 to-rose-50 border border-rose-200 rounded-xl p-4 mb-4">
+          <div className="glass-card bg-gradient-to-br from-peach-50 to-rose-50 border border-rose-200 rounded-xl p-4">
             <p className="text-sm text-contrast-light text-center">
               Lora, remember to listen to your body and baby girl. Stay hydrated and take breaks whenever needed! 💕
             </p>
-          </div>
-          
-          {/* Temporary test button */}
-          <div className="text-center">
-            <Button 
-              onClick={handleBackToHome}
-              variant="outline"
-              className="bg-white border-rose-300 text-rose-600 hover:bg-rose-50"
-            >
-              Test: Go to Home
-            </Button>
           </div>
         </main>
       </div>
