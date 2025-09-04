@@ -1,18 +1,10 @@
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { Heart, Edit3, Check, X } from "lucide-react";
-import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { Heart } from "lucide-react";
 import { type User, type WorkoutSession, type Exercise } from "@shared/schema";
 import SessionSelector from "@/components/session-selector";
 import ExerciseCard from "@/components/exercise-card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { apiRequest, queryClient } from "@/lib/queryClient";
-import { useToast } from "@/hooks/use-toast";
 
 export default function Home() {
-  const { toast } = useToast();
-  const [isEditingWeek, setIsEditingWeek] = useState(false);
-  const [tempWeek, setTempWeek] = useState("");
 
   const { data: user } = useQuery<User>({
     queryKey: ["/api/user"],
@@ -26,50 +18,6 @@ export default function Home() {
     queryKey: ["/api/exercises"],
   });
 
-  const updateUserMutation = useMutation({
-    mutationFn: async (updates: Partial<User>) => {
-      const response = await apiRequest("PATCH", "/api/user", updates);
-      return response.json();
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/user"] });
-      setIsEditingWeek(false);
-      toast({
-        title: "Updated!",
-        description: "Your pregnancy week has been updated.",
-      });
-    },
-    onError: () => {
-      toast({
-        title: "Error",
-        description: "Failed to update pregnancy week.",
-        variant: "destructive",
-      });
-    },
-  });
-
-  const handleEditWeek = () => {
-    setTempWeek(user?.pregnancyWeek?.toString() || "");
-    setIsEditingWeek(true);
-  };
-
-  const handleSaveWeek = () => {
-    const week = parseInt(tempWeek);
-    if (week >= 1 && week <= 42) {
-      updateUserMutation.mutate({ pregnancyWeek: week });
-    } else {
-      toast({
-        title: "Invalid week",
-        description: "Please enter a week between 1 and 42.",
-        variant: "destructive",
-      });
-    }
-  };
-
-  const handleCancelEdit = () => {
-    setIsEditingWeek(false);
-    setTempWeek("");
-  };
 
   const progressPercentage = user ? Math.round((todaySessions.length / user.dailyGoal) * 100) : 0;
   const strokeDashoffset = 251.2 - (251.2 * progressPercentage) / 100;
@@ -91,71 +39,7 @@ export default function Home() {
           <p className="text-white text-sm leading-relaxed opacity-90">Safe prenatal exercises for you and baby girl</p>
           
           {user && (
-            <div className="mt-4 space-y-3">
-              {/* Pregnancy Progress */}
-              <div className="glass-card rounded-xl p-3 smooth-transition">
-                <div className="flex items-center justify-between mb-1">
-                  <div className="text-xs text-contrast-light">Your Journey</div>
-                  {!isEditingWeek && (
-                    <Button
-                      onClick={handleEditWeek}
-                      size="sm"
-                      variant="ghost"
-                      className="h-6 w-6 p-0 text-contrast-light hover:text-contrast hover:bg-rose-100"
-                    >
-                      <Edit3 className="w-3 h-3" />
-                    </Button>
-                  )}
-                </div>
-                <div className="flex items-center">
-                  {isEditingWeek ? (
-                    <div className="flex items-center space-x-2 flex-1">
-                      <Input
-                        type="number"
-                        min="1"
-                        max="42"
-                        value={tempWeek}
-                        onChange={(e) => setTempWeek(e.target.value)}
-                        className="w-16 h-8 text-sm"
-                        placeholder="Week"
-                        autoFocus
-                      />
-                      <span className="text-sm text-contrast">weeks</span>
-                      <div className="flex items-center space-x-1 ml-2">
-                        <Button
-                          onClick={handleSaveWeek}
-                          size="sm"
-                          variant="ghost"
-                          className="h-6 w-6 p-0 text-green-600 hover:text-green-700 hover:bg-green-100"
-                          disabled={updateUserMutation.isPending}
-                        >
-                          <Check className="w-3 h-3" />
-                        </Button>
-                        <Button
-                          onClick={handleCancelEdit}
-                          size="sm"
-                          variant="ghost"
-                          className="h-6 w-6 p-0 text-gray-500 hover:text-gray-700 hover:bg-gray-100"
-                          disabled={updateUserMutation.isPending}
-                        >
-                          <X className="w-3 h-3" />
-                        </Button>
-                      </div>
-                    </div>
-                  ) : (
-                    <>
-                      <span className="text-lg font-medium text-contrast">{user.pregnancyWeek} weeks</span>
-                      <div className="ml-2 flex-1 bg-rose-100 h-2.5 rounded-full">
-                        <div 
-                          className="bg-gradient-to-r from-rose-400 to-rose-500 h-2.5 rounded-full transition-all duration-500 shadow-sm" 
-                          style={{ width: `${Math.min((user.pregnancyWeek / 40) * 100, 100)}%` }}
-                        ></div>
-                      </div>
-                    </>
-                  )}
-                </div>
-              </div>
-              
+            <div className="mt-4">
               {/* Streak Information */}
               <div className="glass-card rounded-xl p-3 smooth-transition">
                 <div className="text-xs text-contrast-light mb-1">Exercise Streak</div>

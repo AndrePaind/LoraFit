@@ -22,6 +22,8 @@ export default function WorkoutSession() {
   const [sessionExercises, setSessionExercises] = useState<Exercise[]>([]);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [sessionStarted, setSessionStarted] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [transitionCountdown, setTransitionCountdown] = useState(5);
 
   const { data: allExercises = [] } = useQuery<Exercise[]>({
     queryKey: ["/api/exercises"],
@@ -73,20 +75,32 @@ export default function WorkoutSession() {
   };
 
   const handleExerciseComplete = useCallback(() => {
-    setCurrentExerciseIndex(prevIndex => {
-      if (prevIndex < sessionExercises.length - 1) {
-        return prevIndex + 1;
-      } else {
-        // Session completed
-        completeSessionMutation.mutate(sessionExercises.length);
-        // Navigate back to home
-        setTimeout(() => {
-          setLocation("/home");
-        }, 500);
-        return prevIndex;
-      }
-    });
-  }, [sessionExercises.length, completeSessionMutation]);
+    if (currentExerciseIndex < sessionExercises.length - 1) {
+      // Start transition to next exercise
+      setIsTransitioning(true);
+      setTransitionCountdown(5);
+      
+      // Countdown timer
+      let count = 5;
+      const countdownInterval = setInterval(() => {
+        count -= 1;
+        setTransitionCountdown(count);
+        
+        if (count <= 0) {
+          clearInterval(countdownInterval);
+          setIsTransitioning(false);
+          setCurrentExerciseIndex(prevIndex => prevIndex + 1);
+        }
+      }, 1000);
+    } else {
+      // Session completed
+      completeSessionMutation.mutate(sessionExercises.length);
+      // Navigate back to home
+      setTimeout(() => {
+        setLocation("/home");
+      }, 500);
+    }
+  }, [currentExerciseIndex, sessionExercises.length, completeSessionMutation]);
 
   const handleSkipExercise = useCallback(() => {
     handleExerciseComplete();
@@ -150,7 +164,7 @@ export default function WorkoutSession() {
                 {sessionExercises.map((exercise, index) => (
                   <div key={exercise.id} className="flex items-center justify-between glass-card rounded-lg p-3 smooth-transition">
                     <span className="text-sm font-medium text-contrast">{exercise.name}</span>
-                    <span className="text-xs text-contrast-light">{duration === 5 ? '40s' : '80s'}</span>
+                    <span className="text-xs text-contrast-light">{duration === 5 ? '40s' : '45s'}</span>
                   </div>
                 ))}
               </div>
@@ -173,6 +187,24 @@ export default function WorkoutSession() {
         <div className="text-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-rose-500 mx-auto mb-4"></div>
           <p className="text-contrast-light">Loading exercises...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show transition screen between exercises
+  if (isTransitioning && currentExerciseIndex < sessionExercises.length - 1) {
+    const nextExercise = sessionExercises[currentExerciseIndex + 1];
+    return (
+      <div className="max-w-sm mx-auto min-h-screen safe-area-inset flex items-center justify-center bg-gradient-to-br from-rose-500 via-rose-400 to-blush-400">
+        <div className="text-center text-white p-8">
+          <div className="w-32 h-32 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-sm">
+            <span className="text-6xl font-bold">{transitionCountdown}</span>
+          </div>
+          <h2 className="text-2xl font-bold mb-2">Great job, Lora! 🎉</h2>
+          <p className="text-lg mb-4">Get ready for the next exercise</p>
+          <p className="text-xl font-semibold">{nextExercise.name}</p>
+          <p className="text-sm opacity-75 mt-2">Take a moment to adjust your position</p>
         </div>
       </div>
     );
