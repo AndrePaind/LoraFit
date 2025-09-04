@@ -3,6 +3,7 @@ import { useRoute, useLocation } from "wouter";
 import { useState, useEffect, useCallback } from "react";
 import { type Exercise } from "@shared/schema";
 import ExerciseTimer from "@/components/exercise-timer";
+import { ExerciseIllustration } from "@/components/exercise-illustrations";
 import { Button } from "@/components/ui/button";
 import { X, ArrowLeft } from "lucide-react";
 import { apiRequest, queryClient } from "@/lib/queryClient";
@@ -164,7 +165,7 @@ export default function WorkoutSession() {
                 {sessionExercises.map((exercise, index) => (
                   <div key={exercise.id} className="flex items-center justify-between glass-card rounded-lg p-3 smooth-transition">
                     <span className="text-sm font-medium text-contrast">{exercise.name}</span>
-                    <span className="text-xs text-contrast-light">{duration === 5 ? '40s' : '45s'}</span>
+                    <span className="text-xs text-contrast-light">{duration === 5 ? '40s' : '60s'}</span>
                   </div>
                 ))}
               </div>
@@ -203,8 +204,14 @@ export default function WorkoutSession() {
           </div>
           <h2 className="text-2xl font-bold mb-2">Great job, Lora! 🎉</h2>
           <p className="text-lg mb-4">Get ready for the next exercise</p>
-          <p className="text-xl font-semibold">{nextExercise.name}</p>
-          <p className="text-sm opacity-75 mt-2">Take a moment to adjust your position</p>
+          <p className="text-xl font-semibold mb-4">{nextExercise.name}</p>
+          
+          {/* Next Exercise Image */}
+          <div className="mb-4">
+            <ExerciseIllustration exerciseId={nextExercise.id} className="h-32 w-full rounded-lg" />
+          </div>
+          
+          <p className="text-sm opacity-75">Take a moment to adjust your position</p>
         </div>
       </div>
     );
